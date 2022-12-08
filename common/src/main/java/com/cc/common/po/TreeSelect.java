@@ -1,8 +1,8 @@
 package com.cc.common.po;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.cc.common.po.entity.SysDept;
 import com.cc.common.po.entity.SysMenu;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.util.List;

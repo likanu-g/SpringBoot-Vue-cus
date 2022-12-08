@@ -8,7 +8,7 @@ import com.cc.common.exception.ServiceException;
 import com.cc.common.utils.CacheUtils;
 import com.cc.common.utils.StringUtils;
 import com.cc.common.utils.text.Convert;
-import com.cc.system.mapper.SysConfigMapper;
+import com.cc.system.dao.SysConfigMapper;
 import com.cc.system.po.SysConfig;
 import com.cc.system.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ import java.util.List;
  */
 @Service
 public class SysConfigServiceImpl implements ISysConfigService {
-   @Autowired
-   private SysConfigMapper configMapper;
+    @Autowired
+    private SysConfigMapper configMapper;
 
     @Value("${common.ehCacheEnabled}")
     private boolean ehCacheEnabled;
@@ -197,9 +197,9 @@ public class SysConfigServiceImpl implements ISysConfigService {
      */
     @Override
     public String checkConfigKeyUnique(SysConfig config) {
-        Long configId = StringUtils.isNull(config.getConfigId()) ? -1L : config.getConfigId();
+        long configId = StringUtils.isNull(config.getConfigId()) ? -1L : config.getConfigId();
         SysConfig info = configMapper.checkConfigKeyUnique(config.getConfigKey());
-        if (StringUtils.isNotNull(info) && info.getConfigId().longValue() != configId.longValue()) {
+        if (StringUtils.isNotNull(info) && info.getConfigId() != configId) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;

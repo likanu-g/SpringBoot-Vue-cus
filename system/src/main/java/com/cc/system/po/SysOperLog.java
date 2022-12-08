@@ -1,9 +1,9 @@
 package com.cc.system.po;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.cc.common.annotation.Excel;
 import com.cc.common.annotation.Excel.ColumnType;
 import com.cc.common.po.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 

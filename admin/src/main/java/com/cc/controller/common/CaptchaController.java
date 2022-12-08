@@ -1,6 +1,5 @@
 package com.cc.controller.common;
 
-import com.google.code.kaptcha.Producer;
 import com.cc.common.config.CommonConfig;
 import com.cc.common.constant.CacheConstants;
 import com.cc.common.constant.Constants;
@@ -9,6 +8,7 @@ import com.cc.common.utils.CacheUtils;
 import com.cc.common.utils.sign.Base64;
 import com.cc.common.utils.uuid.IdUtils;
 import com.cc.system.service.ISysConfigService;
+import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;

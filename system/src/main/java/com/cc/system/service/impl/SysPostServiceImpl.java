@@ -3,8 +3,8 @@ package com.cc.system.service.impl;
 import com.cc.common.constant.UserConstants;
 import com.cc.common.exception.ServiceException;
 import com.cc.common.utils.StringUtils;
-import com.cc.system.mapper.SysPostMapper;
-import com.cc.system.mapper.SysUserPostMapper;
+import com.cc.system.dao.SysPostMapper;
+import com.cc.system.dao.SysUserPostMapper;
 import com.cc.system.po.SysPost;
 import com.cc.system.service.ISysPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +76,9 @@ public class SysPostServiceImpl implements ISysPostService {
      */
     @Override
     public String checkPostNameUnique(SysPost post) {
-        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
+        long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
         SysPost info = postMapper.checkPostNameUnique(post.getPostName());
-        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
+        if (StringUtils.isNotNull(info) && info.getPostId() != postId) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;
@@ -92,9 +92,9 @@ public class SysPostServiceImpl implements ISysPostService {
      */
     @Override
     public String checkPostCodeUnique(SysPost post) {
-        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
+        long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
         SysPost info = postMapper.checkPostCodeUnique(post.getPostCode());
-        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
+        if (StringUtils.isNotNull(info) && info.getPostId() != postId) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;

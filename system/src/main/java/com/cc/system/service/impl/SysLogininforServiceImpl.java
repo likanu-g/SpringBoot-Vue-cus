@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.mapper.SysLogininforMapper;
+import com.cc.system.dao.SysLogininforMapper;
 import com.cc.system.po.SysLogininfor;
 import com.cc.system.service.ISysLogininforService;
 import org.springframework.beans.factory.annotation.Autowired;

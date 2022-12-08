@@ -2,7 +2,7 @@ package com.cc.system.service.impl;
 
 import com.cc.common.po.entity.SysDictData;
 import com.cc.common.utils.DictUtils;
-import com.cc.system.mapper.SysDictDataMapper;
+import com.cc.system.dao.SysDictDataMapper;
 import com.cc.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

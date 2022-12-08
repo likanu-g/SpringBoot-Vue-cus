@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.mapper.SysNoticeMapper;
+import com.cc.system.dao.SysNoticeMapper;
 import com.cc.system.po.SysNotice;
 import com.cc.system.service.ISysNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;

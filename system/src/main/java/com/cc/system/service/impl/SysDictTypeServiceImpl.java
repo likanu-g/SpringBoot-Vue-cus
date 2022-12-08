@@ -6,8 +6,8 @@ import com.cc.common.po.entity.SysDictData;
 import com.cc.common.po.entity.SysDictType;
 import com.cc.common.utils.DictUtils;
 import com.cc.common.utils.StringUtils;
-import com.cc.system.mapper.SysDictDataMapper;
-import com.cc.system.mapper.SysDictTypeMapper;
+import com.cc.system.dao.SysDictDataMapper;
+import com.cc.system.dao.SysDictTypeMapper;
 import com.cc.system.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -201,9 +201,9 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public String checkDictTypeUnique(SysDictType dict) {
-        Long dictId = StringUtils.isNull(dict.getDictId()) ? -1L : dict.getDictId();
+        long dictId = StringUtils.isNull(dict.getDictId()) ? -1L : dict.getDictId();
         SysDictType dictType = dictTypeMapper.checkDictTypeUnique(dict.getDictType());
-        if (StringUtils.isNotNull(dictType) && dictType.getDictId().longValue() != dictId.longValue()) {
+        if (StringUtils.isNotNull(dictType) && dictType.getDictId() != dictId) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;

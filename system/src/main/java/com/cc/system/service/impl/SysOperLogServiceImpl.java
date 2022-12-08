@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.mapper.SysOperLogMapper;
+import com.cc.system.dao.SysOperLogMapper;
 import com.cc.system.po.SysOperLog;
 import com.cc.system.service.ISysOperLogService;
 import org.springframework.beans.factory.annotation.Autowired;

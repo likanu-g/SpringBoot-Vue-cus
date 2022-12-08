@@ -1,9 +1,9 @@
 package com.cc.common.utils;
 
-import com.github.pagehelper.PageHelper;
 import com.cc.common.po.page.PageDomain;
 import com.cc.common.po.page.TableSupport;
 import com.cc.common.utils.sql.SqlUtil;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 分页工具类
