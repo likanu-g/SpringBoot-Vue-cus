@@ -36,9 +36,12 @@ server:
 
 # 日志配置
 logging:
+  # 日志级别
   level:
     com.cc: debug
     org.springframework: warn
+  # 配置文件路径
+  config: classpath:logback.xml
 
 # 用户配置
 user:
@@ -66,7 +69,7 @@ spring:
   cache:
     type: ehcache
     ehcache:
-      config: classpath:/ehcache.xml
+      config: classpath:ehcache.xml
   # 服务模块
   devtools:
     restart:
