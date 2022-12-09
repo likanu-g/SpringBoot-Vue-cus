@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 # ./run.sh start 启动 stop 停止 restart 重启 status 状态
 AppName=admin.jar
 
 # JVM参数
 JVM_OPTS="-Dname=$AppName -Duser.timezone=Asia/Shanghai -Xms256m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError -XX:NewRatio=1 -XX:SurvivorRatio=30"
 APP_HOME=`pwd`
-SPRINGBOOT_CONF_PATH= `--spring.config.location=`
+SPRINGBOOT_CONF_PATH="--spring.config.location="
 LOG_PATH=$APP_HOME/logs/$AppName.log
 
 if [ "$1" = "" ];
@@ -20,8 +20,7 @@ then
     exit 1
 fi
 
-function start()
-{
+function start(){
     PID=`ps -ef |grep java|grep $AppName|grep -v grep|awk '{print $2}'`
 
 	if [ x"$PID" != x"" ]; then
@@ -32,8 +31,7 @@ function start()
 	fi
 }
 
-function stop()
-{
+function stop(){
     echo "Stop $AppName"
 	PID=""
 	query(){
