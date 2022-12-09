@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysRoleMapper {
+public interface SysRoleDao {
     /**
      * 根据条件分页查询角色数据
      *

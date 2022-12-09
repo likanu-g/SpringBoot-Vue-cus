@@ -8,7 +8,7 @@ import com.cc.common.exception.ServiceException;
 import com.cc.common.utils.CacheUtils;
 import com.cc.common.utils.StringUtils;
 import com.cc.common.utils.text.Convert;
-import com.cc.system.dao.SysConfigMapper;
+import com.cc.system.dao.SysConfigDao;
 import com.cc.system.po.SysConfig;
 import com.cc.system.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import java.util.List;
 @Service
 public class SysConfigServiceImpl implements ISysConfigService {
     @Autowired
-    private SysConfigMapper configMapper;
+    private SysConfigDao configMapper;
 
     @Value("${common.ehCacheEnabled}")
     private boolean ehCacheEnabled;

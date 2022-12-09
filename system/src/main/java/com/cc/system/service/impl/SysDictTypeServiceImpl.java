@@ -6,8 +6,8 @@ import com.cc.common.po.entity.SysDictData;
 import com.cc.common.po.entity.SysDictType;
 import com.cc.common.utils.DictUtils;
 import com.cc.common.utils.StringUtils;
-import com.cc.system.dao.SysDictDataMapper;
-import com.cc.system.dao.SysDictTypeMapper;
+import com.cc.system.dao.SysDictDataDao;
+import com.cc.system.dao.SysDictTypeDao;
 import com.cc.system.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Autowired
-    private SysDictTypeMapper dictTypeMapper;
+    private SysDictTypeDao dictTypeMapper;
 
     @Autowired
-    private SysDictDataMapper dictDataMapper;
+    private SysDictDataDao dictDataMapper;
 
     @Value("${common.ehCacheEnabled}")
     private boolean ehCacheEnabled;

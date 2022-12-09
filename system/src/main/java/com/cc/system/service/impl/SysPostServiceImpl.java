@@ -3,8 +3,8 @@ package com.cc.system.service.impl;
 import com.cc.common.constant.UserConstants;
 import com.cc.common.exception.ServiceException;
 import com.cc.common.utils.StringUtils;
-import com.cc.system.dao.SysPostMapper;
-import com.cc.system.dao.SysUserPostMapper;
+import com.cc.system.dao.SysPostDao;
+import com.cc.system.dao.SysUserPostDao;
 import com.cc.system.po.SysPost;
 import com.cc.system.service.ISysPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,10 @@ import java.util.List;
 @Service
 public class SysPostServiceImpl implements ISysPostService {
     @Autowired
-    private SysPostMapper postMapper;
+    private SysPostDao postMapper;
 
     @Autowired
-    private SysUserPostMapper userPostMapper;
+    private SysUserPostDao userPostMapper;
 
     /**
      * 查询岗位信息集合

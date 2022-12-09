@@ -11,14 +11,13 @@ import com.cc.common.utils.SecurityUtils;
 import com.cc.common.utils.SpringUtils;
 import com.cc.common.utils.StringUtils;
 import com.cc.common.utils.text.Convert;
-import com.cc.system.dao.SysDeptMapper;
-import com.cc.system.dao.SysRoleMapper;
+import com.cc.system.dao.SysDeptDao;
+import com.cc.system.dao.SysRoleDao;
 import com.cc.system.service.ISysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,10 +29,10 @@ import java.util.stream.Collectors;
 @Service
 public class SysDeptServiceImpl implements ISysDeptService {
     @Autowired
-    private SysDeptMapper deptMapper;
+    private SysDeptDao deptMapper;
 
     @Autowired
-    private SysRoleMapper roleMapper;
+    private SysRoleDao roleMapper;
 
     /**
      * 查询部门管理数据

@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.dao.SysLogininforMapper;
+import com.cc.system.dao.SysLogininforDao;
 import com.cc.system.po.SysLogininfor;
 import com.cc.system.service.ISysLogininforService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 public class SysLogininforServiceImpl implements ISysLogininforService {
 
     @Autowired
-    private SysLogininforMapper logininforMapper;
+    private SysLogininforDao logininforMapper;
 
     /**
      * 新增系统登录日志

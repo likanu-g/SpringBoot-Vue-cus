@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.dao.SysNoticeMapper;
+import com.cc.system.dao.SysNoticeDao;
 import com.cc.system.po.SysNotice;
 import com.cc.system.service.ISysNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class SysNoticeServiceImpl implements ISysNoticeService {
     @Autowired
-    private SysNoticeMapper noticeMapper;
+    private SysNoticeDao noticeMapper;
 
     /**
      * 查询公告信息

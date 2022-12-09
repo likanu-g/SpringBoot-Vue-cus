@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysDictTypeMapper {
+public interface SysDictTypeDao {
     /**
      * 根据条件分页查询字典类型
      *

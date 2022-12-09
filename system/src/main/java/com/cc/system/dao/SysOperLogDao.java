@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysOperLogMapper {
+public interface SysOperLogDao {
     /**
      * 新增操作日志
      *

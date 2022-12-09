@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysUserMapper {
+public interface SysUserDao {
     /**
      * 根据条件分页查询用户列表
      *

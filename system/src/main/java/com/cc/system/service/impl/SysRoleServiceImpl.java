@@ -8,10 +8,10 @@ import com.cc.common.po.entity.SysUser;
 import com.cc.common.utils.SecurityUtils;
 import com.cc.common.utils.SpringUtils;
 import com.cc.common.utils.StringUtils;
-import com.cc.system.dao.SysRoleDeptMapper;
-import com.cc.system.dao.SysRoleMapper;
-import com.cc.system.dao.SysRoleMenuMapper;
-import com.cc.system.dao.SysUserRoleMapper;
+import com.cc.system.dao.SysRoleDeptDao;
+import com.cc.system.dao.SysRoleDao;
+import com.cc.system.dao.SysRoleMenuDao;
+import com.cc.system.dao.SysUserRoleDao;
 import com.cc.system.po.SysRoleDept;
 import com.cc.system.po.SysRoleMenu;
 import com.cc.system.po.SysUserRole;
@@ -30,16 +30,16 @@ import java.util.*;
 @Service
 public class SysRoleServiceImpl implements ISysRoleService {
     @Autowired
-    private SysRoleMapper roleMapper;
+    private SysRoleDao roleMapper;
 
     @Autowired
-    private SysRoleMenuMapper roleMenuMapper;
+    private SysRoleMenuDao roleMenuMapper;
 
     @Autowired
-    private SysUserRoleMapper userRoleMapper;
+    private SysUserRoleDao userRoleMapper;
 
     @Autowired
-    private SysRoleDeptMapper roleDeptMapper;
+    private SysRoleDeptDao roleDeptMapper;
 
     /**
      * 根据条件分页查询角色数据

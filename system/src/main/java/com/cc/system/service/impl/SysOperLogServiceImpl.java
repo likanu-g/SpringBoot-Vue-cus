@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.dao.SysOperLogMapper;
+import com.cc.system.dao.SysOperLogDao;
 import com.cc.system.po.SysOperLog;
 import com.cc.system.service.ISysOperLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class SysOperLogServiceImpl implements ISysOperLogService {
     @Autowired
-    private SysOperLogMapper operLogMapper;
+    private SysOperLogDao operLogMapper;
 
     /**
      * 新增操作日志

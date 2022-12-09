@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysLogininforMapper {
+public interface SysLogininforDao {
     /**
      * 新增系统登录日志
      *

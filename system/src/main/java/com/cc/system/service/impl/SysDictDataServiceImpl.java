@@ -2,7 +2,7 @@ package com.cc.system.service.impl;
 
 import com.cc.common.po.entity.SysDictData;
 import com.cc.common.utils.DictUtils;
-import com.cc.system.dao.SysDictDataMapper;
+import com.cc.system.dao.SysDictDataDao;
 import com.cc.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class SysDictDataServiceImpl implements ISysDictDataService {
     @Autowired
-    private SysDictDataMapper dictDataMapper;
+    private SysDictDataDao dictDataMapper;
 
     /**
      * 根据条件分页查询字典数据

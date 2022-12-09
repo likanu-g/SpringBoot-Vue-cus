@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysUserRoleMapper {
+public interface SysUserRoleDao {
     /**
      * 通过用户ID删除用户和角色关联
      *

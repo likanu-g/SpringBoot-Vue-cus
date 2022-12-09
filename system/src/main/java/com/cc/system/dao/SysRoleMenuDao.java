@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysRoleMenuMapper {
+public interface SysRoleMenuDao {
     /**
      * 查询菜单使用数量
      *

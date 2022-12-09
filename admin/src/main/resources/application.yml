@@ -14,8 +14,6 @@ common:
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
   captchaType: math
-  #没有数据库，通过配置文件读写数据
-  noDatabaseEnabled: true
   #是否开启ehCache缓存
   ehCacheEnabled: true
 # 开发环境配置

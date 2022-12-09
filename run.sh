@@ -1,10 +1,11 @@
 #!/bin/sh
-# ./ry.sh start 启动 stop 停止 restart 重启 status 状态
+# ./run.sh start 启动 stop 停止 restart 重启 status 状态
 AppName=admin.jar
 
 # JVM参数
-JVM_OPTS="-Dname=$AppName  -Duser.timezone=Asia/Shanghai -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps  -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
+JVM_OPTS="-Dname=$AppName -Duser.timezone=Asia/Shanghai -Xms256m -Xmx512m -XX:+HeapDumpOnOutOfMemoryError -XX:NewRatio=1 -XX:SurvivorRatio=30"
 APP_HOME=`pwd`
+SPRINGBOOT_CONF_PATH= `--spring.config.location=`
 LOG_PATH=$APP_HOME/logs/$AppName.log
 
 if [ "$1" = "" ];
@@ -26,7 +27,7 @@ function start()
 	if [ x"$PID" != x"" ]; then
 	    echo "$AppName is running..."
 	else
-		nohup java $JVM_OPTS -jar $AppName > /dev/null 2>&1 &
+		nohup java $JVM_OPTS -jar ${AppName} > ${LOG_PATH} 2>&1 &
 		echo "Start $AppName success..."
 	fi
 }
@@ -34,7 +35,6 @@ function start()
 function stop()
 {
     echo "Stop $AppName"
-
 	PID=""
 	query(){
 		PID=`ps -ef |grep java|grep $AppName|grep -v grep|awk '{print $2}'`

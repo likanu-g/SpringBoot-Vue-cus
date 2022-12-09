@@ -1,7 +1,6 @@
 package com.cc.system.service.impl;
 
 import com.cc.common.annotation.DataScope;
-import com.cc.common.config.CommonConfig;
 import com.cc.common.constant.UserConstants;
 import com.cc.common.exception.ServiceException;
 import com.cc.common.po.entity.SysRole;
@@ -10,7 +9,6 @@ import com.cc.common.utils.SecurityUtils;
 import com.cc.common.utils.SpringUtils;
 import com.cc.common.utils.StringUtils;
 import com.cc.common.utils.bean.BeanValidators;
-import com.cc.common.utils.file.JsonFileUtils;
 import com.cc.system.dao.*;
 import com.cc.system.po.SysPost;
 import com.cc.system.po.SysUserPost;
@@ -20,13 +18,10 @@ import com.cc.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-
 import javax.validation.Validator;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,20 +37,17 @@ public class SysUserServiceImpl implements ISysUserService {
     @Autowired
     protected Validator validator;
     @Autowired
-    private SysUserMapper userMapper;
+    private SysUserDao userMapper;
     @Autowired
-    private SysRoleMapper roleMapper;
+    private SysRoleDao roleMapper;
     @Autowired
-    private SysPostMapper postMapper;
+    private SysPostDao postMapper;
     @Autowired
-    private SysUserRoleMapper userRoleMapper;
+    private SysUserRoleDao userRoleMapper;
     @Autowired
-    private SysUserPostMapper userPostMapper;
+    private SysUserPostDao userPostMapper;
     @Autowired
     private ISysConfigService configService;
-    //用户信息json文件路径
-    @Value(value = "${sysUserFilePath}")
-    private File sysUserFilePath;
 
     /**
      * 根据条件分页查询用户列表
@@ -66,11 +58,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUserList(SysUser user) {
-        if (!CommonConfig.isNoDatabaseEnabled()) {
-            return userMapper.selectUserList(user);
-        } else {
-            return JsonFileUtils.readJson(sysUserFilePath, SysUser.class);
-        }
+        return userMapper.selectUserList(user);
     }
 
     /**

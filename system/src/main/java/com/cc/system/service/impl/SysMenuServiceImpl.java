@@ -8,9 +8,9 @@ import com.cc.common.po.entity.SysRole;
 import com.cc.common.po.entity.SysUser;
 import com.cc.common.utils.SecurityUtils;
 import com.cc.common.utils.StringUtils;
-import com.cc.system.dao.SysMenuMapper;
-import com.cc.system.dao.SysRoleMapper;
-import com.cc.system.dao.SysRoleMenuMapper;
+import com.cc.system.dao.SysMenuDao;
+import com.cc.system.dao.SysRoleDao;
+import com.cc.system.dao.SysRoleMenuDao;
 import com.cc.system.po.vo.MetaVo;
 import com.cc.system.po.vo.RouterVo;
 import com.cc.system.service.ISysMenuService;
@@ -30,13 +30,13 @@ public class SysMenuServiceImpl implements ISysMenuService {
     public static final String PREMISSION_STRING = "perms[\"{0}\"]";
 
     @Autowired
-    private SysMenuMapper menuMapper;
+    private SysMenuDao menuMapper;
 
     @Autowired
-    private SysRoleMapper roleMapper;
+    private SysRoleDao roleMapper;
 
     @Autowired
-    private SysRoleMenuMapper roleMenuMapper;
+    private SysRoleMenuDao roleMenuMapper;
 
     /**
      * 根据用户查询系统菜单列表

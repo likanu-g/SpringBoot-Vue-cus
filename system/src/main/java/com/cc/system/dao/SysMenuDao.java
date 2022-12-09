@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysMenuMapper {
+public interface SysMenuDao {
     /**
      * 查询系统菜单列表
      *
