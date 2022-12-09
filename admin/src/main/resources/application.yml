@@ -1,9 +1,9 @@
 # 项目相关配置
 common:
-  # 名称
-  name: Demo
   # 应用
   application:
+    # 名称
+    name: Demo
     # 版本
     version: 1.0.1
     # 版权年份

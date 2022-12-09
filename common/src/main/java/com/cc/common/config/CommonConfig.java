@@ -1,5 +1,6 @@
 package com.cc.common.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -32,14 +33,17 @@ public class CommonConfig {
     /**
      * 项目名称
      */
+    @Value("${common.application.name}")
     private String name;
     /**
      * 版本
      */
+    @Value("${common.application.version}")
     private String version;
     /**
      * 版权年份
      */
+    @Value("${common.application.copyrightYear}")
     private String copyrightYear;
 
     public static boolean isNoDatabaseEnabled() {
