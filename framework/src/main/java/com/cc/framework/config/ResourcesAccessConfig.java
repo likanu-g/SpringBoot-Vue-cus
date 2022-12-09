@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @author liukang
  */
 @Configuration
-public class ResourcesConfig implements WebMvcConfigurer {
+public class ResourcesAccessConfig implements WebMvcConfigurer {
     @Autowired
     private RepeatSubmitInterceptor repeatSubmitInterceptor;
 
@@ -31,12 +31,6 @@ public class ResourcesConfig implements WebMvcConfigurer {
         /** 本地文件上传路径 */
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
                 .addResourceLocations("file:" + CommonConfig.getProfile() + "/");
-
-        /** swagger配置 */
-        registry.addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
-                .setCacheControl(CacheControl.maxAge(5, TimeUnit.HOURS).cachePublic());
-        ;
     }
 
     /**

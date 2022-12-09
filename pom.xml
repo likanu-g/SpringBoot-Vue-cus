@@ -131,6 +131,7 @@
                 <version>${kaptcha.version}</version>
             </dependency>
 
+            <!-- ehcache的相关依赖 -->
             <dependency>
                 <groupId>net.sf.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
