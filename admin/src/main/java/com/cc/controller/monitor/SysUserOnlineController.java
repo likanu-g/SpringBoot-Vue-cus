@@ -17,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 在线用户监控
@@ -39,20 +36,21 @@ public class SysUserOnlineController extends BaseController {
     @PreAuthorize("@ss.hasPermit('monitor:online:list')")
     @GetMapping("/list")
     public TableDataInfo list(String ipaddr, String userName) {
-        Collection<String> keys = null;
-        keys = CacheUtils.getTokenCacheKeys();
-        List<SysUserOnline> userOnlineList = new ArrayList<SysUserOnline>();
+        Collection<String> keys = CacheUtils.getTokenCacheKeys();
+        List<SysUserOnline> userOnlineList = new ArrayList<>();
         for (String key : keys) {
             LoginUser user = CacheUtils.getCacheObject(key, Constants.TOKEN_EHCACHE);
             if (StringUtils.isNotEmpty(ipaddr) && StringUtils.isNotEmpty(userName)) {
+                assert user != null;
                 if (StringUtils.equals(ipaddr, user.getIpaddr()) && StringUtils.equals(userName, user.getUsername())) {
                     userOnlineList.add(userOnlineService.selectOnlineByInfo(ipaddr, userName, user));
                 }
             } else if (StringUtils.isNotEmpty(ipaddr)) {
+                assert user != null;
                 if (StringUtils.equals(ipaddr, user.getIpaddr())) {
                     userOnlineList.add(userOnlineService.selectOnlineByIpaddr(ipaddr, user));
                 }
-            } else if (StringUtils.isNotEmpty(userName) && StringUtils.isNotNull(user.getUser())) {
+            } else if (StringUtils.isNotEmpty(userName) && StringUtils.isNotNull(Objects.requireNonNull(user).getUser())) {
                 if (StringUtils.equals(userName, user.getUsername())) {
                     userOnlineList.add(userOnlineService.selectOnlineByUserName(userName, user));
                 }
