@@ -11,7 +11,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.Set;
 
 /**
- * RuoYi首创 自定义权限实现，ss取自SpringSecurity首字母
+ * 自定义权限实现，ss取自SpringSecurity首字母
  *
  * @author liukang
  */
@@ -37,7 +37,7 @@ public class PermissionService {
      * @param permission 权限字符串
      * @return 用户是否具备某权限
      */
-    public boolean hasPermi(String permission) {
+    public boolean hasPermit(String permission) {
         if (StringUtils.isEmpty(permission)) {
             return false;
         }
@@ -55,8 +55,8 @@ public class PermissionService {
      * @param permission 权限字符串
      * @return 用户是否不具备某权限
      */
-    public boolean lacksPermi(String permission) {
-        return hasPermi(permission) != true;
+    public boolean lacksPermit(String permission) {
+        return !hasPermit(permission);
     }
 
     /**
@@ -65,7 +65,7 @@ public class PermissionService {
      * @param permissions 以 PERMISSION_NAMES_DELIMETER 为分隔符的权限列表
      * @return 用户是否具有以下任意一个权限
      */
-    public boolean hasAnyPermi(String permissions) {
+    public boolean hasAnyPermit(String permissions) {
         if (StringUtils.isEmpty(permissions)) {
             return false;
         }
@@ -113,7 +113,7 @@ public class PermissionService {
      * @return 用户是否不具备某角色
      */
     public boolean lacksRole(String role) {
-        return hasRole(role) != true;
+        return !hasRole(role);
     }
 
     /**

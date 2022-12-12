@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * web层通用数据处理
+ * web层通用控制器
  *
  * @author liukang
  */

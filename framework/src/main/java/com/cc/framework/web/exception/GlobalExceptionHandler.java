@@ -1,7 +1,6 @@
 package com.cc.framework.web.exception;
 
 import com.cc.common.constant.HttpStatus;
-import com.cc.common.exception.DemoModeException;
 import com.cc.common.exception.ServiceException;
 import com.cc.common.po.AjaxResult;
 import com.cc.common.utils.StringUtils;
@@ -13,8 +12,8 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * 全局异常处理器
@@ -92,15 +91,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
-        String message = e.getBindingResult().getFieldError().getDefaultMessage();
+        String message = Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage();
         return AjaxResult.error(message);
-    }
-
-    /**
-     * 演示模式异常
-     */
-    @ExceptionHandler(DemoModeException.class)
-    public AjaxResult handleDemoModeException(DemoModeException e) {
-        return AjaxResult.error("演示模式，不允许操作");
     }
 }

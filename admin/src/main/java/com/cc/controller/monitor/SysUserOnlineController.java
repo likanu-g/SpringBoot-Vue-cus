@@ -36,7 +36,7 @@ public class SysUserOnlineController extends BaseController {
     @Autowired
     private TokenService tokenService;
 
-    @PreAuthorize("@ss.hasPermi('monitor:online:list')")
+    @PreAuthorize("@ss.hasPermit('monitor:online:list')")
     @GetMapping("/list")
     public TableDataInfo list(String ipaddr, String userName) {
         Collection<String> keys = null;
@@ -68,7 +68,7 @@ public class SysUserOnlineController extends BaseController {
     /**
      * 强退用户
      */
-    @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
+    @PreAuthorize("@ss.hasPermit('monitor:online:forceLogout')")
     @Log(title = "在线用户", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
     public AjaxResult forceLogout(@PathVariable String tokenId) {
