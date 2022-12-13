@@ -24,7 +24,7 @@ public class ReflectUtils {
 
     private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
-    private static Logger logger = LoggerFactory.getLogger(ReflectUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReflectUtils.class);
 
     /**
      * 调用Getter方法.
@@ -183,7 +183,6 @@ public class ReflectUtils {
                 makeAccessible(field);
                 return field;
             } catch (NoSuchFieldException e) {
-                continue;
             }
         }
         return null;
@@ -208,7 +207,6 @@ public class ReflectUtils {
                 makeAccessible(method);
                 return method;
             } catch (NoSuchMethodException e) {
-                continue;
             }
         }
         return null;

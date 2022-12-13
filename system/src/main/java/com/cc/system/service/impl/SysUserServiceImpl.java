@@ -37,15 +37,15 @@ public class SysUserServiceImpl implements ISysUserService {
     @Autowired
     protected Validator validator;
     @Autowired
-    private SysUserDao userMapper;
+    private SysUserDao sysUserDao;
     @Autowired
-    private SysRoleDao roleMapper;
+    private SysRoleDao sysRoleDao;
     @Autowired
-    private SysPostDao postMapper;
+    private SysPostDao sysPostDao;
     @Autowired
-    private SysUserRoleDao userRoleMapper;
+    private SysUserRoleDao sysUserRoleDao;
     @Autowired
-    private SysUserPostDao userPostMapper;
+    private SysUserPostDao sysUserPostDao;
     @Autowired
     private ISysConfigService configService;
 
@@ -58,7 +58,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUserList(SysUser user) {
-        return userMapper.selectUserList(user);
+        return sysUserDao.selectUserList(user);
     }
 
     /**
@@ -70,7 +70,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectAllocatedList(SysUser user) {
-        return userMapper.selectAllocatedList(user);
+        return sysUserDao.selectAllocatedList(user);
     }
 
     /**
@@ -82,7 +82,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUnallocatedList(SysUser user) {
-        return userMapper.selectUnallocatedList(user);
+        return sysUserDao.selectUnallocatedList(user);
     }
 
     /**
@@ -93,7 +93,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public SysUser selectUserByUserName(String userName) {
-        return userMapper.selectUserByUserName(userName);
+        return sysUserDao.selectUserByUserName(userName);
     }
 
     /**
@@ -104,7 +104,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public SysUser selectUserById(Long userId) {
-        return userMapper.selectUserById(userId);
+        return sysUserDao.selectUserById(userId);
     }
 
     /**
@@ -115,7 +115,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public String selectUserRoleGroup(String userName) {
-        List<SysRole> list = roleMapper.selectRolesByUserName(userName);
+        List<SysRole> list = sysRoleDao.selectRolesByUserName(userName);
         if (CollectionUtils.isEmpty(list)) {
             return StringUtils.EMPTY;
         }
@@ -130,7 +130,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public String selectUserPostGroup(String userName) {
-        List<SysPost> list = postMapper.selectPostsByUserName(userName);
+        List<SysPost> list = sysPostDao.selectPostsByUserName(userName);
         if (CollectionUtils.isEmpty(list)) {
             return StringUtils.EMPTY;
         }
@@ -146,7 +146,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String checkUserNameUnique(SysUser user) {
         long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
-        SysUser info = userMapper.checkUserNameUnique(user.getUserName());
+        SysUser info = sysUserDao.checkUserNameUnique(user.getUserName());
         if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -161,7 +161,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String checkPhoneUnique(SysUser user) {
         long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
-        SysUser info = userMapper.checkPhoneUnique(user.getPhonenumber());
+        SysUser info = sysUserDao.checkPhoneUnique(user.getPhonenumber());
         if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -176,7 +176,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String checkEmailUnique(SysUser user) {
         long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
-        SysUser info = userMapper.checkEmailUnique(user.getEmail());
+        SysUser info = sysUserDao.checkEmailUnique(user.getEmail());
         if (StringUtils.isNotNull(info) && info.getUserId() != userId) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -222,7 +222,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Transactional
     public int insertUser(SysUser user) {
         // 新增用户信息
-        int rows = userMapper.insertUser(user);
+        int rows = sysUserDao.insertUser(user);
         // 新增用户岗位关联
         insertUserPost(user);
         // 新增用户与角色管理
@@ -238,7 +238,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public boolean registerUser(SysUser user) {
-        return userMapper.insertUser(user) > 0;
+        return sysUserDao.insertUser(user) > 0;
     }
 
     /**
@@ -252,14 +252,14 @@ public class SysUserServiceImpl implements ISysUserService {
     public int updateUser(SysUser user) {
         Long userId = user.getUserId();
         // 删除用户与角色关联
-        userRoleMapper.deleteUserRoleByUserId(userId);
+        sysUserRoleDao.deleteUserRoleByUserId(userId);
         // 新增用户与角色管理
         insertUserRole(user);
         // 删除用户与岗位关联
-        userPostMapper.deleteUserPostByUserId(userId);
+        sysUserPostDao.deleteUserPostByUserId(userId);
         // 新增用户与岗位管理
         insertUserPost(user);
-        return userMapper.updateUser(user);
+        return sysUserDao.updateUser(user);
     }
 
     /**
@@ -271,7 +271,7 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     @Transactional
     public void insertUserAuth(Long userId, Long[] roleIds) {
-        userRoleMapper.deleteUserRoleByUserId(userId);
+        sysUserRoleDao.deleteUserRoleByUserId(userId);
         insertUserRole(userId, roleIds);
     }
 
@@ -283,7 +283,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public int updateUserStatus(SysUser user) {
-        return userMapper.updateUser(user);
+        return sysUserDao.updateUser(user);
     }
 
     /**
@@ -294,7 +294,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public int updateUserProfile(SysUser user) {
-        return userMapper.updateUser(user);
+        return sysUserDao.updateUser(user);
     }
 
     /**
@@ -306,7 +306,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public boolean updateUserAvatar(String userName, String avatar) {
-        return userMapper.updateUserAvatar(userName, avatar) > 0;
+        return sysUserDao.updateUserAvatar(userName, avatar) > 0;
     }
 
     /**
@@ -317,7 +317,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public int resetPwd(SysUser user) {
-        return userMapper.updateUser(user);
+        return sysUserDao.updateUser(user);
     }
 
     /**
@@ -329,7 +329,7 @@ public class SysUserServiceImpl implements ISysUserService {
      */
     @Override
     public int resetUserPwd(String userName, String password) {
-        return userMapper.resetUserPwd(userName, password);
+        return sysUserDao.resetUserPwd(userName, password);
     }
 
     /**
@@ -357,7 +357,7 @@ public class SysUserServiceImpl implements ISysUserService {
                 up.setPostId(postId);
                 list.add(up);
             }
-            userPostMapper.batchUserPost(list);
+            sysUserPostDao.batchUserPost(list);
         }
     }
 
@@ -377,7 +377,7 @@ public class SysUserServiceImpl implements ISysUserService {
                 ur.setRoleId(roleId);
                 list.add(ur);
             }
-            userRoleMapper.batchUserRole(list);
+            sysUserRoleDao.batchUserRole(list);
         }
     }
 
@@ -391,10 +391,10 @@ public class SysUserServiceImpl implements ISysUserService {
     @Transactional
     public int deleteUserById(Long userId) {
         // 删除用户与角色关联
-        userRoleMapper.deleteUserRoleByUserId(userId);
+        sysUserRoleDao.deleteUserRoleByUserId(userId);
         // 删除用户与岗位表
-        userPostMapper.deleteUserPostByUserId(userId);
-        return userMapper.deleteUserById(userId);
+        sysUserPostDao.deleteUserPostByUserId(userId);
+        return sysUserDao.deleteUserById(userId);
     }
 
     /**
@@ -411,10 +411,10 @@ public class SysUserServiceImpl implements ISysUserService {
             checkUserDataScope(userId);
         }
         // 删除用户与角色关联
-        userRoleMapper.deleteUserRole(userIds);
+        sysUserRoleDao.deleteUserRole(userIds);
         // 删除用户与岗位关联
-        userPostMapper.deleteUserPost(userIds);
-        return userMapper.deleteUserByIds(userIds);
+        sysUserPostDao.deleteUserPost(userIds);
+        return sysUserDao.deleteUserByIds(userIds);
     }
 
     /**
@@ -438,7 +438,7 @@ public class SysUserServiceImpl implements ISysUserService {
         for (SysUser user : userList) {
             try {
                 // 验证是否存在这个用户
-                SysUser u = userMapper.selectUserByUserName(user.getUserName());
+                SysUser u = sysUserDao.selectUserByUserName(user.getUserName());
                 if (StringUtils.isNull(u)) {
                     BeanValidators.validateWithException(validator, user);
                     user.setPassword(SecurityUtils.encryptPassword(password));

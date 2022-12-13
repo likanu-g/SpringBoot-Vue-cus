@@ -4,15 +4,16 @@ import com.alibaba.fastjson2.JSON;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Component
 public class JsonFileUtils {
 
     public static String readString(File file) {
-        BufferedReader bufferedReader = null;
+        BufferedReader bufferedReader;
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             StringBuilder content = new StringBuilder();
             String line = null;
             while ((line = bufferedReader.readLine()) != null) {

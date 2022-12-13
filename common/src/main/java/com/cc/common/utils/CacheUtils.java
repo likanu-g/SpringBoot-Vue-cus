@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class CacheUtils {
     //在线用户缓存keys
-    private static Set<String> tokenCacheKeys = new HashSet<>();
+    private static final Set<String> tokenCacheKeys = new HashSet<>();
     //参数配置缓存keys
-    private static Set<String> sysConfigCacheKeys = new HashSet<>();
+    private static final Set<String> sysConfigCacheKeys = new HashSet<>();
 
     /**
      * 设置缓存

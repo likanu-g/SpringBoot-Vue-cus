@@ -51,7 +51,7 @@ public class CommonConfig {
     }
 
     public void setNoDatabaseEnabled(boolean noDatabaseEnabled) {
-        this.noDatabaseEnabled = noDatabaseEnabled;
+        CommonConfig.noDatabaseEnabled = noDatabaseEnabled;
     }
 
     public static String getProfile() {
@@ -83,7 +83,7 @@ public class CommonConfig {
     }
 
     public void setEhCacheEnabled(boolean ehCacheEnabled) {
-        this.ehCacheEnabled = ehCacheEnabled;
+        CommonConfig.ehCacheEnabled = ehCacheEnabled;
     }
 
     /**

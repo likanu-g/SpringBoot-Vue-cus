@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Autowired
-    private SysDictTypeDao dictTypeMapper;
+    private SysDictTypeDao sysDictTypeDao;
 
     @Autowired
-    private SysDictDataDao dictDataMapper;
+    private SysDictDataDao sysDictDataDao;
 
     @Value("${common.ehCacheEnabled}")
     private boolean ehCacheEnabled;
@@ -52,7 +52,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public List<SysDictType> selectDictTypeList(SysDictType dictType) {
-        return dictTypeMapper.selectDictTypeList(dictType);
+        return sysDictTypeDao.selectDictTypeList(dictType);
     }
 
     /**
@@ -62,7 +62,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public List<SysDictType> selectDictTypeAll() {
-        return dictTypeMapper.selectDictTypeAll();
+        return sysDictTypeDao.selectDictTypeAll();
     }
 
     /**
@@ -77,7 +77,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
         if (StringUtils.isNotEmpty(dictDatas)) {
             return dictDatas;
         }
-        dictDatas = dictDataMapper.selectDictDataByType(dictType);
+        dictDatas = sysDictDataDao.selectDictDataByType(dictType);
         if (StringUtils.isNotEmpty(dictDatas)) {
             DictUtils.setDictCache(dictType, dictDatas);
             return dictDatas;
@@ -93,7 +93,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public SysDictType selectDictTypeById(Long dictId) {
-        return dictTypeMapper.selectDictTypeById(dictId);
+        return sysDictTypeDao.selectDictTypeById(dictId);
     }
 
     /**
@@ -104,7 +104,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public SysDictType selectDictTypeByType(String dictType) {
-        return dictTypeMapper.selectDictTypeByType(dictType);
+        return sysDictTypeDao.selectDictTypeByType(dictType);
     }
 
     /**
@@ -116,10 +116,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     public void deleteDictTypeByIds(Long[] dictIds) {
         for (Long dictId : dictIds) {
             SysDictType dictType = selectDictTypeById(dictId);
-            if (dictDataMapper.countDictDataByType(dictType.getDictType()) > 0) {
+            if (sysDictDataDao.countDictDataByType(dictType.getDictType()) > 0) {
                 throw new ServiceException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
             }
-            dictTypeMapper.deleteDictTypeById(dictId);
+            sysDictTypeDao.deleteDictTypeById(dictId);
             DictUtils.removeDictCache(dictType.getDictType());
         }
     }
@@ -131,7 +131,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     public void loadingDictCache() {
         SysDictData dictData = new SysDictData();
         dictData.setStatus("0");
-        Map<String, List<SysDictData>> dictDataMap = dictDataMapper.selectDictDataList(dictData).stream().collect(Collectors.groupingBy(SysDictData::getDictType));
+        Map<String, List<SysDictData>> dictDataMap = sysDictDataDao.selectDictDataList(dictData).stream().collect(Collectors.groupingBy(SysDictData::getDictType));
         for (Map.Entry<String, List<SysDictData>> entry : dictDataMap.entrySet()) {
             //PostConstruct 是在实例化之后，才会执行，而RuoYiConfig这个时候还没有拿配置文件的数据，导致RuoYiConfig.isEhCacheEnabled()取值错误
             //所以ehCacheEnabled修改为@Value 方式获取
@@ -167,7 +167,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public int insertDictType(SysDictType dict) {
-        int row = dictTypeMapper.insertDictType(dict);
+        int row = sysDictTypeDao.insertDictType(dict);
         if (row > 0) {
             DictUtils.setDictCache(dict.getDictType(), null);
         }
@@ -183,11 +183,11 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Override
     @Transactional
     public int updateDictType(SysDictType dict) {
-        SysDictType oldDict = dictTypeMapper.selectDictTypeById(dict.getDictId());
-        dictDataMapper.updateDictDataType(oldDict.getDictType(), dict.getDictType());
-        int row = dictTypeMapper.updateDictType(dict);
+        SysDictType oldDict = sysDictTypeDao.selectDictTypeById(dict.getDictId());
+        sysDictDataDao.updateDictDataType(oldDict.getDictType(), dict.getDictType());
+        int row = sysDictTypeDao.updateDictType(dict);
         if (row > 0) {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dict.getDictType());
+            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(dict.getDictType());
             DictUtils.setDictCache(dict.getDictType(), dictDatas);
         }
         return row;
@@ -202,7 +202,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Override
     public String checkDictTypeUnique(SysDictType dict) {
         long dictId = StringUtils.isNull(dict.getDictId()) ? -1L : dict.getDictId();
-        SysDictType dictType = dictTypeMapper.checkDictTypeUnique(dict.getDictType());
+        SysDictType dictType = sysDictTypeDao.checkDictTypeUnique(dict.getDictType());
         if (StringUtils.isNotNull(dictType) && dictType.getDictId() != dictId) {
             return UserConstants.NOT_UNIQUE;
         }

@@ -7,9 +7,9 @@ import com.cc.common.utils.SpringUtils;
 import com.cc.common.utils.StringUtils;
 import com.cc.common.utils.ip.AddressUtils;
 import com.cc.common.utils.ip.IpUtils;
-import com.cc.system.po.SysLogininfor;
+import com.cc.system.po.SysLoginInfo;
 import com.cc.system.po.SysOperLog;
-import com.cc.system.service.ISysLogininforService;
+import com.cc.system.service.ISysLoginInfoService;
 import com.cc.system.service.ISysOperLogService;
 import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class AsyncFactory {
                 // 获取客户端浏览器
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
-                SysLogininfor logininfor = new SysLogininfor();
+                SysLoginInfo logininfor = new SysLoginInfo();
                 logininfor.setUserName(username);
                 logininfor.setIpaddr(ip);
                 logininfor.setLoginLocation(address);
@@ -69,7 +69,7 @@ public class AsyncFactory {
                     logininfor.setStatus(Constants.FAIL);
                 }
                 // 插入数据
-                SpringUtils.getBean(ISysLogininforService.class).insertLogininfor(logininfor);
+                SpringUtils.getBean(ISysLoginInfoService.class).insertLoginInfo(logininfor);
             }
         };
     }

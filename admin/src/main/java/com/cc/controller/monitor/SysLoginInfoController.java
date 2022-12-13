@@ -7,8 +7,8 @@ import com.cc.common.po.AjaxResult;
 import com.cc.common.po.page.TableDataInfo;
 import com.cc.common.utils.poi.ExcelUtil;
 import com.cc.framework.web.service.SysPasswordService;
-import com.cc.system.po.SysLogininfor;
-import com.cc.system.service.ISysLogininforService;
+import com.cc.system.po.SysLoginInfo;
+import com.cc.system.service.ISysLoginInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,27 +23,27 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/monitor/logininfor")
-public class SysLogininforController extends BaseController {
+public class SysLoginInfoController extends BaseController {
     @Autowired
-    private ISysLogininforService logininforService;
+    private ISysLoginInfoService logininforService;
 
     @Autowired
     private SysPasswordService passwordService;
 
     @PreAuthorize("@ss.hasPermit('monitor:logininfor:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysLogininfor logininfor) {
+    public TableDataInfo list(SysLoginInfo logininfor) {
         startPage();
-        List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
+        List<SysLoginInfo> list = logininforService.selectLogininforList(logininfor);
         return getDataTable(list);
     }
 
     @Log(title = "登录日志", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermit('monitor:logininfor:export')")
     @PostMapping("/export")
-    public void export(HttpServletResponse response, SysLogininfor logininfor) {
-        List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
-        ExcelUtil<SysLogininfor> util = new ExcelUtil<>(SysLogininfor.class);
+    public void export(HttpServletResponse response, SysLoginInfo logininfor) {
+        List<SysLoginInfo> list = logininforService.selectLogininforList(logininfor);
+        ExcelUtil<SysLoginInfo> util = new ExcelUtil<>(SysLoginInfo.class);
         util.exportExcel(response, list, "登录日志");
     }
 

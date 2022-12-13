@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 @Component
 public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
@@ -41,8 +41,8 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
     /**
      * 验证是否重复提交由子类实现具体的防重复提交的规则
      *
-     * @param request
-     * @param annotation
+     * @param request http请求
+     * @param annotation 注解
      * @return
      */
     public abstract boolean isRepeatSubmit(HttpServletRequest request, RepeatSubmit annotation);

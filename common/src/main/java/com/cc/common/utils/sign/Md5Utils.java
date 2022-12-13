@@ -19,7 +19,7 @@ public class Md5Utils {
         try {
             algorithm = MessageDigest.getInstance("MD5");
             algorithm.reset();
-            algorithm.update(s.getBytes("UTF-8"));
+            algorithm.update(s.getBytes(StandardCharsets.UTF_8));
             byte[] messageDigest = algorithm.digest();
             return messageDigest;
         } catch (Exception e) {
@@ -28,7 +28,7 @@ public class Md5Utils {
         return null;
     }
 
-    private static final String toHex(byte hash[]) {
+    private static final String toHex(byte[] hash) {
         if (hash == null) {
             return null;
         }

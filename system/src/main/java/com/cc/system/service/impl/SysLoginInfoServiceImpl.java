@@ -1,8 +1,8 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.dao.SysLogininforDao;
-import com.cc.system.po.SysLogininfor;
-import com.cc.system.service.ISysLogininforService;
+import com.cc.system.dao.SysLoginInfoDao;
+import com.cc.system.po.SysLoginInfo;
+import com.cc.system.service.ISysLoginInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,10 @@ import java.util.List;
  * @author liukang
  */
 @Service
-public class SysLogininforServiceImpl implements ISysLogininforService {
+public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
 
     @Autowired
-    private SysLogininforDao logininforMapper;
+    private SysLoginInfoDao sysLogininfoDao;
 
     /**
      * 新增系统登录日志
@@ -25,8 +25,8 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
      * @param logininfor 访问日志对象
      */
     @Override
-    public void insertLogininfor(SysLogininfor logininfor) {
-        logininforMapper.insertLogininfor(logininfor);
+    public void insertLoginInfo(SysLoginInfo logininfor) {
+        sysLogininfoDao.insertLogininfor(logininfor);
     }
 
     /**
@@ -36,8 +36,8 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
      * @return 登录记录集合
      */
     @Override
-    public List<SysLogininfor> selectLogininforList(SysLogininfor logininfor) {
-        return logininforMapper.selectLogininforList(logininfor);
+    public List<SysLoginInfo> selectLogininforList(SysLoginInfo logininfor) {
+        return sysLogininfoDao.selectLogininforList(logininfor);
     }
 
     /**
@@ -48,7 +48,7 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
      */
     @Override
     public int deleteLogininforByIds(Long[] infoIds) {
-        return logininforMapper.deleteLogininforByIds(infoIds);
+        return sysLogininfoDao.deleteLogininforByIds(infoIds);
     }
 
     /**
@@ -56,6 +56,6 @@ public class SysLogininforServiceImpl implements ISysLogininforService {
      */
     @Override
     public void cleanLogininfor() {
-        logininforMapper.cleanLogininfor();
+        sysLogininfoDao.cleanLoginInfo();
     }
 }

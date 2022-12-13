@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
- * 系统访问记录表 sys_logininfor
+ * 系统访问记录表 sys_loginInfo
  *
  * @author liukang
  */
-public class SysLogininfor extends BaseEntity {
+public class SysLoginInfo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**

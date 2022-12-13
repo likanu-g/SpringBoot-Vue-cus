@@ -43,7 +43,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
      * @throws org.springframework.beans.BeansException
      */
     public static <T> T getBean(Class<T> clz) throws BeansException {
-        T result = (T) beanFactory.getBean(clz);
+        T result = beanFactory.getBean(clz);
         return result;
     }
 

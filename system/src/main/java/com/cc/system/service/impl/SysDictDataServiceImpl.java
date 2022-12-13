@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class SysDictDataServiceImpl implements ISysDictDataService {
     @Autowired
-    private SysDictDataDao dictDataMapper;
+    private SysDictDataDao sysDictDataDao;
 
     /**
      * 根据条件分页查询字典数据
@@ -27,7 +27,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public List<SysDictData> selectDictDataList(SysDictData dictData) {
-        return dictDataMapper.selectDictDataList(dictData);
+        return sysDictDataDao.selectDictDataList(dictData);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public String selectDictLabel(String dictType, String dictValue) {
-        return dictDataMapper.selectDictLabel(dictType, dictValue);
+        return sysDictDataDao.selectDictLabel(dictType, dictValue);
     }
 
     /**
@@ -50,7 +50,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public SysDictData selectDictDataById(Long dictCode) {
-        return dictDataMapper.selectDictDataById(dictCode);
+        return sysDictDataDao.selectDictDataById(dictCode);
     }
 
     /**
@@ -62,8 +62,8 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
     public void deleteDictDataByIds(Long[] dictCodes) {
         for (Long dictCode : dictCodes) {
             SysDictData data = selectDictDataById(dictCode);
-            dictDataMapper.deleteDictDataById(dictCode);
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
+            sysDictDataDao.deleteDictDataById(dictCode);
+            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(data.getDictType());
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
     }
@@ -76,9 +76,9 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public int insertDictData(SysDictData data) {
-        int row = dictDataMapper.insertDictData(data);
+        int row = sysDictDataDao.insertDictData(data);
         if (row > 0) {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
+            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(data.getDictType());
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
         return row;
@@ -92,9 +92,9 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public int updateDictData(SysDictData data) {
-        int row = dictDataMapper.updateDictData(data);
+        int row = sysDictDataDao.updateDictData(data);
         if (row > 0) {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
+            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(data.getDictType());
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
         return row;
