@@ -32,15 +32,37 @@ import java.util.List;
  */
 @Configuration
 public class MyBatisConfig {
-    static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
+    private static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
     @Autowired
     private Environment env;
 
-    public static String setTypeAliasesPackage(String typeAliasesPackage) {
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+        String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
+        String mapperLocations = env.getProperty("mybatis.mapperLocations");
+        String configLocation = env.getProperty("mybatis.configLocation");
+        assert typeAliasesPackage != null;
+        typeAliasesPackage = getTypeAliasesPackage(typeAliasesPackage);
+        VFS.addImplClass(SpringBootVFS.class);
+        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
+        sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
+        assert configLocation != null;
+        sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
+        return sessionFactory.getObject();
+    }
+
+    /**
+     *  获取实体类的包别名
+     * @param typeAliasesPackage 所有实体类的包名
+     * @return 包字符串
+     */
+    public static String getTypeAliasesPackage(String typeAliasesPackage) {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resolver);
-        List<String> allResult = new ArrayList<>();
         try {
+            List<String> allResult = new ArrayList<>();
             for (String aliasesPackage : typeAliasesPackage.split(",")) {
                 List<String> result = new ArrayList<>();
                 aliasesPackage = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX
@@ -59,18 +81,27 @@ public class MyBatisConfig {
                         }
                     }
                 }
-                if (result.size() > 0) {
+                if (!result.isEmpty()) {
                     HashSet<String> hashResult = new HashSet<>(result);
                     allResult.addAll(hashResult);
                 }
             }
-            throw new RuntimeException("mybatis typeAliasesPackage 路径扫描错误,参数typeAliasesPackage:" + typeAliasesPackage + "未找到任何包");
+            if (!allResult.isEmpty()) {
+                typeAliasesPackage = String.join(",", allResult.toArray(new String[0]));
+            } else {
+                throw new RuntimeException("mybatis typeAliasesPackage 路径扫描错误,参数typeAliasesPackage:" + typeAliasesPackage + "未找到任何包");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return typeAliasesPackage;
     }
 
+    /**
+     * 获取所有Mapper映射文件的资源路径
+     * @param mapperLocations mapper映射文件路径
+     * @return Resource[] 包资源数组
+     */
     public Resource[] resolveMapperLocations(String[] mapperLocations) {
         ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
         List<Resource> resources = new ArrayList<>();
@@ -84,24 +115,7 @@ public class MyBatisConfig {
                 }
             }
         }
-        return resources.toArray(new Resource[resources.size()]);
+        return resources.toArray(new Resource[0]);
     }
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
-        String mapperLocations = env.getProperty("mybatis.mapperLocations");
-        String configLocation = env.getProperty("mybatis.configLocation");
-        assert typeAliasesPackage != null;
-        typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
-        VFS.addImplClass(SpringBootVFS.class);
-
-        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);
-        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
-        sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
-        assert configLocation != null;
-        sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
-        return sessionFactory.getObject();
-    }
 }
