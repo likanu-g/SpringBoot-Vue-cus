@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class SysOperLogServiceImpl implements ISysOperLogService {
     @Autowired
-    private SysOperLogDao operLogMapper;
+    private SysOperLogDao sysOperLogDao;
 
     /**
      * 新增操作日志
@@ -25,7 +25,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public void insertOperlog(SysOperLog operLog) {
-        operLogMapper.insertOperlog(operLog);
+        sysOperLogDao.insertOperlog(operLog);
     }
 
     /**
@@ -36,7 +36,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public List<SysOperLog> selectOperLogList(SysOperLog operLog) {
-        return operLogMapper.selectOperLogList(operLog);
+        return sysOperLogDao.selectOperLogList(operLog);
     }
 
     /**
@@ -47,7 +47,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public int deleteOperLogByIds(Long[] operIds) {
-        return operLogMapper.deleteOperLogByIds(operIds);
+        return sysOperLogDao.deleteOperLogByIds(operIds);
     }
 
     /**
@@ -58,7 +58,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public SysOperLog selectOperLogById(Long operId) {
-        return operLogMapper.selectOperLogById(operId);
+        return sysOperLogDao.selectOperLogById(operId);
     }
 
     /**
@@ -66,6 +66,6 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public void cleanOperLog() {
-        operLogMapper.cleanOperLog();
+        sysOperLogDao.cleanOperLog();
     }
 }

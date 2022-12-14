@@ -103,13 +103,6 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-# Swagger配置
-swagger:
-  # 是否开启swagger
-  enabled: true
-  # 请求前缀
-  pathMapping: /dev-api
-
 # 防止XSS攻击
 xss:
   # 过滤开关
@@ -118,3 +111,15 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+threadpool:
+  #corePoolSize:
+  # 核心线程池大小
+  corePoolSize: 50
+  # 最大可创建的线程数
+  maxPoolSize: 200
+  # 队列最大长度
+  queueCapacity: 1000
+  # 线程池维护线程所允许的空闲时间
+  keepAliveSeconds: 300
+
