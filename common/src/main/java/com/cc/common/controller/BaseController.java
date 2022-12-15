@@ -165,12 +165,6 @@ public abstract class BaseController {
         return getLoginUser().getUserId();
     }
 
-    /**
-     * 获取登录部门id
-     */
-    protected Long getDeptId() {
-        return getLoginUser().getDeptId();
-    }
 
     /**
      * 获取登录用户名

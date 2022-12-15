@@ -47,11 +47,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         passwordService.validate(user);
-
-        return createLoginUser(user);
-    }
-
-    public UserDetails createLoginUser(SysUser user) {
-        return new LoginUser(user.getUserId(), user.getDeptId(), user, permissionService.getMenuPermission(user));
+        return new LoginUser(user, permissionService.getMenuPermission(user));
     }
 }

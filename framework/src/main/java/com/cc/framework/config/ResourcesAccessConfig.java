@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 通用配置
+ * 通用资源权限配置
  *
  * @author liukang
  */

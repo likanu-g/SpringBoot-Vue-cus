@@ -5,15 +5,12 @@ import com.cc.common.constant.UserConstants;
 import com.cc.common.controller.BaseController;
 import com.cc.common.enums.BusinessType;
 import com.cc.common.po.AjaxResult;
-import com.cc.common.po.entity.SysDept;
 import com.cc.common.po.entity.SysRole;
 import com.cc.common.po.entity.SysUser;
 import com.cc.common.po.page.TableDataInfo;
 import com.cc.common.utils.SecurityUtils;
 import com.cc.common.utils.StringUtils;
 import com.cc.common.utils.poi.ExcelUtil;
-import com.cc.system.service.ISysDeptService;
-import com.cc.system.service.ISysPostService;
 import com.cc.system.service.ISysRoleService;
 import com.cc.system.service.ISysUserService;
 import org.apache.commons.lang3.ArrayUtils;
@@ -41,11 +38,6 @@ public class SysUserController extends BaseController {
     @Autowired
     private ISysRoleService roleService;
 
-    @Autowired
-    private ISysDeptService deptService;
-
-    @Autowired
-    private ISysPostService postService;
 
     /**
      * 获取用户列表
@@ -94,11 +86,9 @@ public class SysUserController extends BaseController {
         AjaxResult ajax = AjaxResult.success();
         List<SysRole> roles = roleService.selectRoleAll();
         ajax.put("roles", SysUser.isAdmin(userId) ? roles : roles.stream().filter(r -> !r.isAdmin()).collect(Collectors.toList()));
-        ajax.put("posts", postService.selectPostAll());
         if (StringUtils.isNotNull(userId)) {
             SysUser sysUser = userService.selectUserById(userId);
             ajax.put(AjaxResult.DATA_TAG, sysUser);
-            ajax.put("postIds", postService.selectPostListByUserId(userId));
             ajax.put("roleIds", sysUser.getRoles().stream().map(SysRole::getRoleId).collect(Collectors.toList()));
         }
         return ajax;
@@ -211,14 +201,5 @@ public class SysUserController extends BaseController {
         userService.checkUserDataScope(userId);
         userService.insertUserAuth(userId, roleIds);
         return success();
-    }
-
-    /**
-     * 获取部门树列表
-     */
-    @PreAuthorize("@ss.hasPermit('system:user:list')")
-    @GetMapping("/deptTree")
-    public AjaxResult deptTree(SysDept dept) {
-        return success(deptService.selectDeptTreeList(dept));
     }
 }

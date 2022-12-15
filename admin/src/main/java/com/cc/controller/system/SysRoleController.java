@@ -5,7 +5,6 @@ import com.cc.common.constant.UserConstants;
 import com.cc.common.controller.BaseController;
 import com.cc.common.enums.BusinessType;
 import com.cc.common.po.AjaxResult;
-import com.cc.common.po.entity.SysDept;
 import com.cc.common.po.entity.SysRole;
 import com.cc.common.po.entity.SysUser;
 import com.cc.common.po.model.LoginUser;
@@ -15,7 +14,6 @@ import com.cc.common.utils.poi.ExcelUtil;
 import com.cc.framework.web.service.SysPermissionService;
 import com.cc.framework.web.service.TokenService;
 import com.cc.system.po.SysUserRole;
-import com.cc.system.service.ISysDeptService;
 import com.cc.system.service.ISysRoleService;
 import com.cc.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +44,6 @@ public class SysRoleController extends BaseController {
     @Autowired
     private ISysUserService userService;
 
-    @Autowired
-    private ISysDeptService deptService;
 
     @PreAuthorize("@ss.hasPermit('system:role:list')")
     @GetMapping("/list")
@@ -219,15 +215,4 @@ public class SysRoleController extends BaseController {
         return toAjax(roleService.insertAuthUsers(roleId, userIds));
     }
 
-    /**
-     * 获取对应角色部门树列表
-     */
-    @PreAuthorize("@ss.hasPermit('system:role:query')")
-    @GetMapping(value = "/deptTree/{roleId}")
-    public AjaxResult deptTree(@PathVariable("roleId") Long roleId) {
-        AjaxResult ajax = AjaxResult.success();
-        ajax.put("checkedKeys", deptService.selectDeptListByRoleId(roleId));
-        ajax.put("depts", deptService.selectDeptTreeList(new SysDept()));
-        return ajax;
-    }
 }

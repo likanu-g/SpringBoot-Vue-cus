@@ -17,14 +17,14 @@ public class LoginUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户ID
+     * 系统用户信息
      */
-    private Long userId;
+    private SysUser user;
 
     /**
-     * 部门ID
+     * 系统用户权限列表
      */
-    private Long deptId;
+    private Set<String> permissions;
 
     /**
      * 用户唯一标识
@@ -61,15 +61,6 @@ public class LoginUser implements UserDetails {
      */
     private String os;
 
-    /**
-     * 权限列表
-     */
-    private Set<String> permissions;
-
-    /**
-     * 用户信息
-     */
-    private SysUser user;
 
     public LoginUser() {
     }
@@ -79,28 +70,12 @@ public class LoginUser implements UserDetails {
         this.permissions = permissions;
     }
 
-    public LoginUser(Long userId, Long deptId, SysUser user, Set<String> permissions) {
-        this.userId = userId;
-        this.deptId = deptId;
-        this.user = user;
-        this.permissions = permissions;
-    }
 
     public Long getUserId() {
-        return userId;
+        return user.getUserId();
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
 
     public String getToken() {
         return token;
@@ -133,7 +108,7 @@ public class LoginUser implements UserDetails {
     /**
      * 指定用户是否解锁,锁定的用户无法进行身份验证
      *
-     * @return
+     * @return 用户是否被锁定
      */
     @JSONField(serialize = false)
     @Override
@@ -144,7 +119,6 @@ public class LoginUser implements UserDetails {
     /**
      * 指示是否已过期的用户的凭据(密码),过期的凭据防止认证
      *
-     * @return
      */
     @JSONField(serialize = false)
     @Override
@@ -155,7 +129,7 @@ public class LoginUser implements UserDetails {
     /**
      * 是否可用 ,禁用的用户不能身份验证
      *
-     * @return
+     * @return 返回用户是否可用
      */
     @JSONField(serialize = false)
     @Override

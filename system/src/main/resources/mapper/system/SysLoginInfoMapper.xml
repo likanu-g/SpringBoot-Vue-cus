@@ -16,12 +16,12 @@
         <result property="loginTime" column="login_time"/>
     </resultMap>
 
-    <insert id="insertLogininfor" parameterType="SysLoginInfo">
+    <insert id="insertLoginInfo" parameterType="SysLoginInfo">
         insert into sys_logininfor (user_name, status, ipaddr, login_location, browser, os, msg, login_time)
         values (#{userName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, sysdate())
     </insert>
 
-    <select id="selectLogininforList" parameterType="SysLoginInfo" resultMap="SysLoginInfoResult">
+    <select id="selectLoginInfoList" parameterType="SysLoginInfo" resultMap="SysLoginInfoResult">
         select info_id, user_name, ipaddr, login_location, browser, os, status, msg, login_time from sys_logininfor
         <where>
             <if test="ipaddr != null and ipaddr != ''">
@@ -43,14 +43,14 @@
         order by info_id desc
     </select>
 
-    <delete id="deleteLogininforByIds" parameterType="Long">
+    <delete id="deleteLoginInfoByIds" parameterType="Long">
         delete from sys_logininfor where info_id in
         <foreach collection="array" item="infoId" open="(" separator="," close=")">
             #{infoId}
         </foreach>
     </delete>
 
-    <update id="cleanLogininfor">
+    <update id="cleanLoginInfo">
         truncate table sys_logininfor
     </update>
 

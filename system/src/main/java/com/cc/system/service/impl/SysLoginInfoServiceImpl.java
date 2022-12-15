@@ -17,7 +17,7 @@ import java.util.List;
 public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
 
     @Autowired
-    private ISysLoginInfoDao ISysLogininfoDao;
+    private ISysLoginInfoDao ISysLoginInfoDao;
 
     /**
      * 新增系统登录日志
@@ -26,7 +26,7 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public void insertLoginInfo(SysLoginInfo logininfor) {
-        ISysLogininfoDao.insertLogininfor(logininfor);
+        ISysLoginInfoDao.insertLoginInfo(logininfor);
     }
 
     /**
@@ -37,7 +37,7 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public List<SysLoginInfo> selectLogininforList(SysLoginInfo logininfor) {
-        return ISysLogininfoDao.selectLogininforList(logininfor);
+        return ISysLoginInfoDao.selectLogininforList(logininfor);
     }
 
     /**
@@ -48,7 +48,7 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public int deleteLogininforByIds(Long[] infoIds) {
-        return ISysLogininfoDao.deleteLogininforByIds(infoIds);
+        return ISysLoginInfoDao.deleteLogininforByIds(infoIds);
     }
 
     /**
@@ -56,6 +56,6 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public void cleanLogininfor() {
-        ISysLogininfoDao.cleanLoginInfo();
+        ISysLoginInfoDao.cleanLoginInfo();
     }
 }
