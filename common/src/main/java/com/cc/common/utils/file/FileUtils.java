@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
  * @author liukang
  */
 public class FileUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
     public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+";
 
     /**
@@ -30,7 +30,6 @@ public class FileUtils {
      *
      * @param filePath 文件路径
      * @param os       输出流
-     * @return
      */
     public static void writeBytes(String filePath, OutputStream os) throws IOException {
         FileInputStream fis = null;
@@ -45,8 +44,6 @@ public class FileUtils {
             while ((length = fis.read(b)) > 0) {
                 os.write(b, 0, length);
             }
-        } catch (IOException e) {
-            throw e;
         } finally {
             IOUtils.close(os);
             IOUtils.close(fis);
@@ -91,7 +88,7 @@ public class FileUtils {
      * 删除文件
      *
      * @param filePath 文件
-     * @return
+     * @return 是否删除
      */
     public static boolean deleteFile(String filePath) {
         boolean flag = false;
@@ -168,16 +165,15 @@ public class FileUtils {
     public static void setAttachmentResponseHeader(HttpServletResponse response, String realFileName) throws UnsupportedEncodingException {
         String percentEncodedFileName = percentEncode(realFileName);
 
-        StringBuilder contentDispositionValue = new StringBuilder();
-        contentDispositionValue.append("attachment; filename=")
-                .append(percentEncodedFileName)
-                .append(";")
-                .append("filename*=")
-                .append("utf-8''")
-                .append(percentEncodedFileName);
+        String contentDispositionValue = "attachment; filename=" +
+                percentEncodedFileName +
+                ";" +
+                "filename*=" +
+                "utf-8''" +
+                percentEncodedFileName;
 
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition,download-filename");
-        response.setHeader("Content-disposition", contentDispositionValue.toString());
+        response.setHeader("Content-disposition", contentDispositionValue);
         response.setHeader("download-filename", percentEncodedFileName);
     }
 
@@ -239,8 +235,41 @@ public class FileUtils {
         if (fileName == null) {
             return null;
         }
-        String baseName = FilenameUtils.getBaseName(fileName);
-        return baseName;
+        return FilenameUtils.getBaseName(fileName);
+    }
+
+    /**
+     * 读取指定路径的json文件
+     * @param filePath 文件路径
+     * @return json字符串
+     */
+    public static String readJSONString(String filePath) throws IOException {
+        try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line);
+            }
+            return content.toString();
+        } catch (IOException e) {
+            logger.error("读取json文件异常",e);
+            throw new IOException(e);
+        }
+    }
+
+    /**
+     * 将指定数据写入到文件中
+     * @param filePath 文件路径
+     * @param fileContent 文件内容
+     */
+    public static void writeJSONString(String filePath, String fileContent) throws IOException {
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8))) {
+            bufferedWriter.write(fileContent);
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            logger.error("写入json文件异常",e);
+            throw new IOException(e);
+        }
     }
 
 }

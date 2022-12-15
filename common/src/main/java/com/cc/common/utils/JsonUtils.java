@@ -1,34 +1,58 @@
 package com.cc.common.utils;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class JsonUtils {
-    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
-    public static String readJSONString(String filePath) {
-        try(BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
-            StringBuilder content = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                content.append(line);
-            }
-            return content.toString();
-        } catch (IOException e) {
-            logger.error("读取json文件异常",e);
-            return "";
-        }
+    /**
+     * json字符串转JSONObject
+     * @param jsonString json字符串
+     * @return JSONObject
+     */
+    public static JSONObject stringToJSONObject(String jsonString){
+        return JSONObject.parseObject(jsonString);
     }
 
-    public static void writeJSONString(String filePath, String fileContent) {
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8))) {
-            bufferedWriter.write(fileContent);
-            bufferedWriter.flush();
-        } catch (IOException e) {
-            logger.error("写入json文件异常",e);
-        }
+    /**
+     * json字符串转JSONObject
+     * @param jsonString json字符串
+     * @param clazz class类型
+     * @return JSONObject
+     */
+    public static JSONObject stringToJSONObject(String jsonString, Class<?> clazz){
+        return (JSONObject) JSONObject.parseObject(jsonString, clazz);
+    }
+
+    /**
+     * json字符串转json数组
+     * @param jsonString json字符串
+     * @return JSONArray
+     */
+    public static JSONArray stringToJSONArray(String jsonString) {
+        return JSONArray.parseArray(jsonString);
+    }
+
+    /**
+     * List转JSONArray
+     * @param list list
+     * @return JSONArray
+     */
+    public static JSONArray listToJSONArray(List<?> list) {
+        return JSONArray.parseArray(JSON.toJSONString(list));
+    }
+
+    /**
+     * JSONArray转List
+     * @param jsonArray json数组
+     * @return list
+     */
+    public static List<Object> jsonArrayToList(JSONArray jsonArray) {
+        return jsonArray.toJavaList(Object.class);
     }
 
 }
