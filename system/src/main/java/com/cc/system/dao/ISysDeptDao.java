@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysDeptDao {
+public interface ISysDeptDao {
     /**
      * 查询部门管理数据
      *

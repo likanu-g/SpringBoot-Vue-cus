@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysLoginInfoDao {
+public interface ISysLoginInfoDao {
     /**
      * 新增系统登录日志
      *

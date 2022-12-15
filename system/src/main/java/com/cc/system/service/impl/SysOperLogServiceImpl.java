@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.dao.SysOperLogDao;
+import com.cc.system.dao.ISysOperLogDao;
 import com.cc.system.po.SysOperLog;
 import com.cc.system.service.ISysOperLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class SysOperLogServiceImpl implements ISysOperLogService {
     @Autowired
-    private SysOperLogDao sysOperLogDao;
+    private ISysOperLogDao ISysOperLogDao;
 
     /**
      * 新增操作日志
@@ -25,7 +25,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public void insertOperlog(SysOperLog operLog) {
-        sysOperLogDao.insertOperlog(operLog);
+        ISysOperLogDao.insertOperlog(operLog);
     }
 
     /**
@@ -36,7 +36,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public List<SysOperLog> selectOperLogList(SysOperLog operLog) {
-        return sysOperLogDao.selectOperLogList(operLog);
+        return ISysOperLogDao.selectOperLogList(operLog);
     }
 
     /**
@@ -47,7 +47,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public int deleteOperLogByIds(Long[] operIds) {
-        return sysOperLogDao.deleteOperLogByIds(operIds);
+        return ISysOperLogDao.deleteOperLogByIds(operIds);
     }
 
     /**
@@ -58,7 +58,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public SysOperLog selectOperLogById(Long operId) {
-        return sysOperLogDao.selectOperLogById(operId);
+        return ISysOperLogDao.selectOperLogById(operId);
     }
 
     /**
@@ -66,6 +66,6 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public void cleanOperLog() {
-        sysOperLogDao.cleanOperLog();
+        ISysOperLogDao.cleanOperLog();
     }
 }

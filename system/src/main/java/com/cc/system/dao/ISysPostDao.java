@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysPostDao {
+public interface ISysPostDao {
     /**
      * 查询岗位数据集合
      *

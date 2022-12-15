@@ -1,6 +1,6 @@
 package com.cc.system.service.impl;
 
-import com.cc.system.dao.SysLoginInfoDao;
+import com.cc.system.dao.ISysLoginInfoDao;
 import com.cc.system.po.SysLoginInfo;
 import com.cc.system.service.ISysLoginInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
 
     @Autowired
-    private SysLoginInfoDao sysLogininfoDao;
+    private ISysLoginInfoDao ISysLogininfoDao;
 
     /**
      * 新增系统登录日志
@@ -26,7 +26,7 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public void insertLoginInfo(SysLoginInfo logininfor) {
-        sysLogininfoDao.insertLogininfor(logininfor);
+        ISysLogininfoDao.insertLogininfor(logininfor);
     }
 
     /**
@@ -37,7 +37,7 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public List<SysLoginInfo> selectLogininforList(SysLoginInfo logininfor) {
-        return sysLogininfoDao.selectLogininforList(logininfor);
+        return ISysLogininfoDao.selectLogininforList(logininfor);
     }
 
     /**
@@ -48,7 +48,7 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public int deleteLogininforByIds(Long[] infoIds) {
-        return sysLogininfoDao.deleteLogininforByIds(infoIds);
+        return ISysLogininfoDao.deleteLogininforByIds(infoIds);
     }
 
     /**
@@ -56,6 +56,6 @@ public class SysLoginInfoServiceImpl implements ISysLoginInfoService {
      */
     @Override
     public void cleanLogininfor() {
-        sysLogininfoDao.cleanLoginInfo();
+        ISysLogininfoDao.cleanLoginInfo();
     }
 }

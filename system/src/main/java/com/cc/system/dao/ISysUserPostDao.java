@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysUserPostDao {
+public interface ISysUserPostDao {
     /**
      * 通过用户ID删除用户和岗位关联
      *

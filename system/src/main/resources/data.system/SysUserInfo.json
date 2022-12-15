@@ -1,0 +1,42 @@
+[
+  {
+    "userId": "1",
+    "userName": "admin",
+    "phone": "13112345678",
+    "email": "1212@163.com",
+    "status": "1",
+    "loginIp": "127.0.0.1",
+    "loginDate": "2022-12-14 10:54:32",
+    "createBy": "system",
+    "createTime": "2022-12-14 10:54:32",
+    "updateBy": "",
+    "updateTime": ""
+  },
+  {
+    "userId": "2",
+    "userName": "test",
+    "phone": "13112345678",
+    "email": "1212@163.com",
+    "status": "1",
+    "loginIp": "127.0.0.1",
+    "loginDate": "2022-12-14 10:54:32",
+    "createBy": "system",
+    "createTime": "2022-12-14 10:54:32",
+    "updateBy": "",
+    "updateTime": ""
+
+  },
+  {
+    "userId": "3",
+    "userName": "test1",
+    "phone": "13112345678",
+    "email": "1212@163.com",
+    "status": "1",
+    "loginIp": "127.0.0.1",
+    "loginDate": "2022-12-14 10:54:32",
+    "createBy": "system",
+    "createTime": "2022-12-14 10:54:32",
+    "updateBy": "",
+    "updateTime": ""
+  }
+]

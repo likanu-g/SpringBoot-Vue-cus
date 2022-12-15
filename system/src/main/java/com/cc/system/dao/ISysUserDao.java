@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysUserDao {
+public interface ISysUserDao {
     /**
      * 根据条件分页查询用户列表
      *

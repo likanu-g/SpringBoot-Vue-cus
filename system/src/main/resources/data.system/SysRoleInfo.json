@@ -1,0 +1,38 @@
+[
+  {
+    "role_id": "1",
+    "role_name": "admin",
+    "role_key": "*.*.*",
+    "role_sort": 1,
+    "menu_check_strictly": 1,
+    "status": 0,
+    "create_by": "system",
+    "create_time": "",
+    "update_by": "",
+    "update_time": ""
+  },
+  {
+    "role_id": "2",
+    "role_name": "common",
+    "role_key": "*.*.*",
+    "role_sort": 1,
+    "menu_check_strictly": 1,
+    "status": 0,
+    "create_by": "system",
+    "create_time": "",
+    "update_by": "",
+    "update_time": ""
+  },
+  {
+    "role_id": "3",
+    "role_name": "test",
+    "role_key": "*.*.*",
+    "role_sort": 1,
+    "menu_check_strictly": 1,
+    "status": 0,
+    "create_by": "system",
+    "create_time": "",
+    "update_by": "",
+    "update_time": ""
+  }
+]

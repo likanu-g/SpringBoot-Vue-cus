@@ -1,0 +1,53 @@
+[
+  {
+    "menu_id": "1",
+    "menu_name": "系统管理",
+    "parent_id": "0",
+    "order_num": "1",
+    "path": "system",
+    "is_frame": "",
+    "is_cache": "1",
+    "menu_type": "M",
+    "status": "0",
+    "perms": "admin",
+    "icon": "",
+    "create_by": "admin",
+    "create_time": "2022-12-14 13:40:40",
+    "update_by": "",
+    "update_time": ""
+  },
+  {
+    "menu_id": "2",
+    "menu_name": "角色管理",
+    "parent_id": "0",
+    "order_num": "2",
+    "path": "role",
+    "is_frame": "",
+    "is_cache": "1",
+    "menu_type": "M",
+    "status": "0",
+    "perms": "admin",
+    "icon": "",
+    "create_by": "admin",
+    "create_time": "2022-12-14 13:40:40",
+    "update_by": "",
+    "update_time": ""
+  },
+  {
+    "menu_id": "3",
+    "menu_name": "菜单管理",
+    "parent_id": "0",
+    "order_num": "1",
+    "path": "menu",
+    "is_frame": "",
+    "is_cache": "1",
+    "menu_type": "M",
+    "status": "0",
+    "perms": "admin",
+    "icon": "",
+    "create_by": "admin",
+    "create_time": "2022-12-14 13:40:40",
+    "update_by": "",
+    "update_time": ""
+  }
+]

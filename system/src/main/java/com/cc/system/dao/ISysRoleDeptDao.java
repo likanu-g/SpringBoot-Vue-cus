@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysRoleDeptDao {
+public interface ISysRoleDeptDao {
     /**
      * 通过角色ID删除角色和部门关联
      *

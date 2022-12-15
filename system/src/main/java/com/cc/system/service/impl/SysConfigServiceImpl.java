@@ -8,7 +8,7 @@ import com.cc.common.exception.ServiceException;
 import com.cc.common.utils.CacheUtils;
 import com.cc.common.utils.StringUtils;
 import com.cc.common.utils.text.Convert;
-import com.cc.system.dao.SysConfigDao;
+import com.cc.system.dao.ISysConfigDao;
 import com.cc.system.po.SysConfig;
 import com.cc.system.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import java.util.List;
 @Service
 public class SysConfigServiceImpl implements ISysConfigService {
     @Autowired
-    private SysConfigDao sysConfigDao;
+    private ISysConfigDao ISysConfigDao;
 
     @Value("${common.ehCacheEnabled}")
     private boolean ehCacheEnabled;
@@ -51,7 +51,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     public SysConfig selectConfigById(Long configId) {
         SysConfig config = new SysConfig();
         config.setConfigId(configId);
-        return sysConfigDao.selectConfig(config);
+        return ISysConfigDao.selectConfig(config);
     }
 
     /**
@@ -69,7 +69,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
         }
         SysConfig config = new SysConfig();
         config.setConfigKey(configKey);
-        SysConfig retConfig = sysConfigDao.selectConfig(config);
+        SysConfig retConfig = ISysConfigDao.selectConfig(config);
         if (StringUtils.isNotNull(retConfig)) {
             CacheUtils.addConfigCacheKey(getCacheKey(configKey));
             CacheUtils.putCacheObject(getCacheKey(configKey), retConfig.getConfigValue());
@@ -100,7 +100,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
      */
     @Override
     public List<SysConfig> selectConfigList(SysConfig config) {
-        return sysConfigDao.selectConfigList(config);
+        return ISysConfigDao.selectConfigList(config);
     }
 
     /**
@@ -111,7 +111,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
      */
     @Override
     public int insertConfig(SysConfig config) {
-        int row = sysConfigDao.insertConfig(config);
+        int row = ISysConfigDao.insertConfig(config);
         if (row > 0) {
             CacheUtils.addConfigCacheKey(getCacheKey(config.getConfigKey()));
             CacheUtils.putCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
@@ -127,7 +127,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
      */
     @Override
     public int updateConfig(SysConfig config) {
-        int row = sysConfigDao.updateConfig(config);
+        int row = ISysConfigDao.updateConfig(config);
         if (row > 0) {
             CacheUtils.addConfigCacheKey(getCacheKey(config.getConfigKey()));
             CacheUtils.putCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
@@ -147,7 +147,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
             if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
                 throw new ServiceException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
             }
-            sysConfigDao.deleteConfigById(configId);
+            ISysConfigDao.deleteConfigById(configId);
             CacheUtils.removeConfigCacheKey(getCacheKey(config.getConfigKey()));
             CacheUtils.deleteCacheObject(getCacheKey(config.getConfigKey()));
         }
@@ -158,7 +158,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
      */
     @Override
     public void loadingConfigCache() {
-        List<SysConfig> configsList = sysConfigDao.selectConfigList(new SysConfig());
+        List<SysConfig> configsList = ISysConfigDao.selectConfigList(new SysConfig());
         for (SysConfig config : configsList) {
             CacheUtils.addConfigCacheKey(getCacheKey(config.getConfigKey()));
             //PostConstruct 是在实例化之后，才会执行，而RuoYiConfig这个时候还没有拿配置文件的数据，导致RuoYiConfig.isEhCacheEnabled()取值错误
@@ -198,7 +198,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     @Override
     public String checkConfigKeyUnique(SysConfig config) {
         long configId = StringUtils.isNull(config.getConfigId()) ? -1L : config.getConfigId();
-        SysConfig info = sysConfigDao.checkConfigKeyUnique(config.getConfigKey());
+        SysConfig info = ISysConfigDao.checkConfigKeyUnique(config.getConfigKey());
         if (StringUtils.isNotNull(info) && info.getConfigId() != configId) {
             return UserConstants.NOT_UNIQUE;
         }

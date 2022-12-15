@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysNoticeDao {
+public interface ISysNoticeDao {
     /**
      * 查询公告信息
      *

@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysDictDataDao {
+public interface ISysDictDataDao {
     /**
      * 根据条件分页查询字典数据
      *

@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author liukang
  */
-public interface SysConfigDao {
+public interface ISysConfigDao {
     /**
      * 查询参数配置信息
      *

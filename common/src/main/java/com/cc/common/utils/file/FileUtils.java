@@ -7,6 +7,8 @@ import com.cc.common.utils.uuid.IdUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +22,7 @@ import java.nio.charset.StandardCharsets;
  * @author liukang
  */
 public class FileUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
     public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+";
 
     /**

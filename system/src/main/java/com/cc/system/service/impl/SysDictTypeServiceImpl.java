@@ -6,8 +6,8 @@ import com.cc.common.po.entity.SysDictData;
 import com.cc.common.po.entity.SysDictType;
 import com.cc.common.utils.DictUtils;
 import com.cc.common.utils.StringUtils;
-import com.cc.system.dao.SysDictDataDao;
-import com.cc.system.dao.SysDictTypeDao;
+import com.cc.system.dao.ISysDictDataDao;
+import com.cc.system.dao.ISysDictTypeDao;
 import com.cc.system.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,10 +28,10 @@ import java.util.stream.Collectors;
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Autowired
-    private SysDictTypeDao sysDictTypeDao;
+    private ISysDictTypeDao ISysDictTypeDao;
 
     @Autowired
-    private SysDictDataDao sysDictDataDao;
+    private ISysDictDataDao ISysDictDataDao;
 
     @Value("${common.ehCacheEnabled}")
     private boolean ehCacheEnabled;
@@ -52,7 +52,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public List<SysDictType> selectDictTypeList(SysDictType dictType) {
-        return sysDictTypeDao.selectDictTypeList(dictType);
+        return ISysDictTypeDao.selectDictTypeList(dictType);
     }
 
     /**
@@ -62,7 +62,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public List<SysDictType> selectDictTypeAll() {
-        return sysDictTypeDao.selectDictTypeAll();
+        return ISysDictTypeDao.selectDictTypeAll();
     }
 
     /**
@@ -77,7 +77,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
         if (StringUtils.isNotEmpty(dictDatas)) {
             return dictDatas;
         }
-        dictDatas = sysDictDataDao.selectDictDataByType(dictType);
+        dictDatas = ISysDictDataDao.selectDictDataByType(dictType);
         if (StringUtils.isNotEmpty(dictDatas)) {
             DictUtils.setDictCache(dictType, dictDatas);
             return dictDatas;
@@ -93,7 +93,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public SysDictType selectDictTypeById(Long dictId) {
-        return sysDictTypeDao.selectDictTypeById(dictId);
+        return ISysDictTypeDao.selectDictTypeById(dictId);
     }
 
     /**
@@ -104,7 +104,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public SysDictType selectDictTypeByType(String dictType) {
-        return sysDictTypeDao.selectDictTypeByType(dictType);
+        return ISysDictTypeDao.selectDictTypeByType(dictType);
     }
 
     /**
@@ -116,10 +116,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     public void deleteDictTypeByIds(Long[] dictIds) {
         for (Long dictId : dictIds) {
             SysDictType dictType = selectDictTypeById(dictId);
-            if (sysDictDataDao.countDictDataByType(dictType.getDictType()) > 0) {
+            if (ISysDictDataDao.countDictDataByType(dictType.getDictType()) > 0) {
                 throw new ServiceException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
             }
-            sysDictTypeDao.deleteDictTypeById(dictId);
+            ISysDictTypeDao.deleteDictTypeById(dictId);
             DictUtils.removeDictCache(dictType.getDictType());
         }
     }
@@ -131,7 +131,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     public void loadingDictCache() {
         SysDictData dictData = new SysDictData();
         dictData.setStatus("0");
-        Map<String, List<SysDictData>> dictDataMap = sysDictDataDao.selectDictDataList(dictData).stream().collect(Collectors.groupingBy(SysDictData::getDictType));
+        Map<String, List<SysDictData>> dictDataMap = ISysDictDataDao.selectDictDataList(dictData).stream().collect(Collectors.groupingBy(SysDictData::getDictType));
         for (Map.Entry<String, List<SysDictData>> entry : dictDataMap.entrySet()) {
             //PostConstruct 是在实例化之后，才会执行，而RuoYiConfig这个时候还没有拿配置文件的数据，导致RuoYiConfig.isEhCacheEnabled()取值错误
             //所以ehCacheEnabled修改为@Value 方式获取
@@ -167,7 +167,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public int insertDictType(SysDictType dict) {
-        int row = sysDictTypeDao.insertDictType(dict);
+        int row = ISysDictTypeDao.insertDictType(dict);
         if (row > 0) {
             DictUtils.setDictCache(dict.getDictType(), null);
         }
@@ -183,11 +183,11 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Override
     @Transactional
     public int updateDictType(SysDictType dict) {
-        SysDictType oldDict = sysDictTypeDao.selectDictTypeById(dict.getDictId());
-        sysDictDataDao.updateDictDataType(oldDict.getDictType(), dict.getDictType());
-        int row = sysDictTypeDao.updateDictType(dict);
+        SysDictType oldDict = ISysDictTypeDao.selectDictTypeById(dict.getDictId());
+        ISysDictDataDao.updateDictDataType(oldDict.getDictType(), dict.getDictType());
+        int row = ISysDictTypeDao.updateDictType(dict);
         if (row > 0) {
-            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(dict.getDictType());
+            List<SysDictData> dictDatas = ISysDictDataDao.selectDictDataByType(dict.getDictType());
             DictUtils.setDictCache(dict.getDictType(), dictDatas);
         }
         return row;
@@ -202,7 +202,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Override
     public String checkDictTypeUnique(SysDictType dict) {
         long dictId = StringUtils.isNull(dict.getDictId()) ? -1L : dict.getDictId();
-        SysDictType dictType = sysDictTypeDao.checkDictTypeUnique(dict.getDictType());
+        SysDictType dictType = ISysDictTypeDao.checkDictTypeUnique(dict.getDictType());
         if (StringUtils.isNotNull(dictType) && dictType.getDictId() != dictId) {
             return UserConstants.NOT_UNIQUE;
         }

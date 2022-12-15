@@ -2,7 +2,7 @@ package com.cc.system.service.impl;
 
 import com.cc.common.po.entity.SysDictData;
 import com.cc.common.utils.DictUtils;
-import com.cc.system.dao.SysDictDataDao;
+import com.cc.system.dao.ISysDictDataDao;
 import com.cc.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class SysDictDataServiceImpl implements ISysDictDataService {
     @Autowired
-    private SysDictDataDao sysDictDataDao;
+    private ISysDictDataDao ISysDictDataDao;
 
     /**
      * 根据条件分页查询字典数据
@@ -27,7 +27,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public List<SysDictData> selectDictDataList(SysDictData dictData) {
-        return sysDictDataDao.selectDictDataList(dictData);
+        return ISysDictDataDao.selectDictDataList(dictData);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public String selectDictLabel(String dictType, String dictValue) {
-        return sysDictDataDao.selectDictLabel(dictType, dictValue);
+        return ISysDictDataDao.selectDictLabel(dictType, dictValue);
     }
 
     /**
@@ -50,7 +50,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public SysDictData selectDictDataById(Long dictCode) {
-        return sysDictDataDao.selectDictDataById(dictCode);
+        return ISysDictDataDao.selectDictDataById(dictCode);
     }
 
     /**
@@ -62,8 +62,8 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
     public void deleteDictDataByIds(Long[] dictCodes) {
         for (Long dictCode : dictCodes) {
             SysDictData data = selectDictDataById(dictCode);
-            sysDictDataDao.deleteDictDataById(dictCode);
-            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(data.getDictType());
+            ISysDictDataDao.deleteDictDataById(dictCode);
+            List<SysDictData> dictDatas = ISysDictDataDao.selectDictDataByType(data.getDictType());
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
     }
@@ -76,9 +76,9 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public int insertDictData(SysDictData data) {
-        int row = sysDictDataDao.insertDictData(data);
+        int row = ISysDictDataDao.insertDictData(data);
         if (row > 0) {
-            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(data.getDictType());
+            List<SysDictData> dictDatas = ISysDictDataDao.selectDictDataByType(data.getDictType());
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
         return row;
@@ -92,9 +92,9 @@ public class SysDictDataServiceImpl implements ISysDictDataService {
      */
     @Override
     public int updateDictData(SysDictData data) {
-        int row = sysDictDataDao.updateDictData(data);
+        int row = ISysDictDataDao.updateDictData(data);
         if (row > 0) {
-            List<SysDictData> dictDatas = sysDictDataDao.selectDictDataByType(data.getDictType());
+            List<SysDictData> dictDatas = ISysDictDataDao.selectDictDataByType(data.getDictType());
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
         return row;
