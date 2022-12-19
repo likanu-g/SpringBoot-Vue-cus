@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
     public AjaxResult handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生未知异常.", requestURI, e);
-        String  resultMessage = String.format("请求地址'%s',发生未知异常.", requestURI);
+        String resultMessage = StringUtils.format("请求地址'{}',发生未知异常.", requestURI);
         return AjaxResult.error(resultMessage);
     }
 
@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
     public AjaxResult handleException(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestURI, e);
-        String  resultMessage = String.format("请求地址'%s',发生未知异常.", requestURI);
+        String resultMessage = StringUtils.format("请求地址'{}',发生系统异常.", requestURI);
         return AjaxResult.error(resultMessage);
     }
 

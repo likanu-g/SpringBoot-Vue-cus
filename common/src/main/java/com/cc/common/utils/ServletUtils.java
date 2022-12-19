@@ -94,21 +94,21 @@ public class ServletUtils {
      * @param response 渲染对象
      * @param string   待渲染的字符串
      */
-    public static void renderString(HttpServletResponse response, String string) {
+    public static void renderString(HttpServletResponse response, String string) throws IOException {
         try {
             response.setStatus(200);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(string);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException(e);
         }
     }
 
     /**
      * 是否是Ajax异步请求
      *
-     * @param request
+     * @param request http请求
      */
     public static boolean isAjaxRequest(HttpServletRequest request) {
         String accept = request.getHeader("accept");

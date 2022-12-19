@@ -14,18 +14,18 @@ public class KaptchaTextCreator extends DefaultTextCreator {
 
     @Override
     public String getText() {
-        Integer result = 0;
+        int result;
         Random random = new Random();
         int x = random.nextInt(10);
         int y = random.nextInt(10);
         StringBuilder suChinese = new StringBuilder();
-        int randomoperands = random.nextInt(3);
-        if (randomoperands == 0) {
+        int randomOperAnds = random.nextInt(3);
+        if (randomOperAnds == 0) {
             result = x * y;
             suChinese.append(CNUMBERS[x]);
             suChinese.append("*");
             suChinese.append(CNUMBERS[y]);
-        } else if (randomoperands == 1) {
+        } else if (randomOperAnds == 1) {
             if ((x != 0) && y % x == 0) {
                 result = y / x;
                 suChinese.append(CNUMBERS[y]);
@@ -50,7 +50,7 @@ public class KaptchaTextCreator extends DefaultTextCreator {
                 suChinese.append(CNUMBERS[x]);
             }
         }
-        suChinese.append("=?@" + result);
+        suChinese.append("=?@").append(result);
         return suChinese.toString();
     }
 }
