@@ -3,6 +3,7 @@ package com.cc.common.po;
 import com.cc.common.po.entity.SysDept;
 import com.cc.common.po.entity.SysMenu;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.util.List;
@@ -67,5 +68,10 @@ public class TreeSelect implements Serializable {
 
     public void setChildren(List<TreeSelect> children) {
         this.children = children;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

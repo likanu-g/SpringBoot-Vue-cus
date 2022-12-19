@@ -2,7 +2,6 @@ package com.cc.system.dao.impl;
 
 import com.cc.common.po.entity.SysUser;
 import com.cc.system.dao.ISysUserDao;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

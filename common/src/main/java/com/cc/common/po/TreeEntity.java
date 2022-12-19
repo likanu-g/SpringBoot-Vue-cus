@@ -1,5 +1,7 @@
 package com.cc.common.po;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,5 +76,10 @@ public class TreeEntity extends BaseEntity {
 
     public void setChildren(List<?> children) {
         this.children = children;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

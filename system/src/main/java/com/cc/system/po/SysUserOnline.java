@@ -1,5 +1,7 @@
 package com.cc.system.po;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * 当前在线会话
  *
@@ -108,5 +110,10 @@ public class SysUserOnline {
 
     public void setLoginTime(Long loginTime) {
         this.loginTime = loginTime;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

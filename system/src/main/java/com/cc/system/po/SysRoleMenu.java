@@ -1,7 +1,6 @@
 package com.cc.system.po;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 角色和菜单关联 sys_role_menu
@@ -37,9 +36,6 @@ public class SysRoleMenu {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("roleId", getRoleId())
-                .append("menuId", getMenuId())
-                .toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

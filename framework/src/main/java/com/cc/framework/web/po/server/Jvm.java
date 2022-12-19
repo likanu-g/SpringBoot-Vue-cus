@@ -2,6 +2,7 @@ package com.cc.framework.web.po.server;
 
 import com.cc.common.utils.Arith;
 import com.cc.common.utils.DateUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.lang.management.ManagementFactory;
 
@@ -110,5 +111,10 @@ public class Jvm {
      */
     public String getInputArgs() {
         return ManagementFactory.getRuntimeMXBean().getInputArguments().toString();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

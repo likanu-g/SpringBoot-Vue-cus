@@ -1,6 +1,7 @@
 package com.cc.framework.web.po;
 
 import com.cc.common.constant.HttpStatus;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
@@ -95,5 +96,10 @@ public class R<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

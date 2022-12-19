@@ -1,6 +1,7 @@
 package com.cc.framework.web.po.server;
 
 import com.cc.common.utils.Arith;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * CPU相关信息
@@ -84,5 +85,10 @@ public class Cpu {
 
     public void setFree(double free) {
         this.free = free;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

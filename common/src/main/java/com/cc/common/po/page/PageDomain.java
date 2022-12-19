@@ -1,6 +1,7 @@
 package com.cc.common.po.page;
 
 import com.cc.common.utils.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * 分页数据
@@ -89,5 +90,10 @@ public class PageDomain {
 
     public void setReasonable(Boolean reasonable) {
         this.reasonable = reasonable;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

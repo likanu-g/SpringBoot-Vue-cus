@@ -1,5 +1,7 @@
 package com.cc.framework.web.po.server;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * 系统相关信息
  *
@@ -69,5 +71,10 @@ public class Sys {
 
     public void setOsArch(String osArch) {
         this.osArch = osArch;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

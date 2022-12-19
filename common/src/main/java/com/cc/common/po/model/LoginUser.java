@@ -2,6 +2,7 @@ package com.cc.common.po.model;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.cc.common.po.entity.SysUser;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -204,5 +205,10 @@ public class LoginUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

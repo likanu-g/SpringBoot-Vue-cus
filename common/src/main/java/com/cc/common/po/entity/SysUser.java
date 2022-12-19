@@ -3,11 +3,9 @@ package com.cc.common.po.entity;
 import com.cc.common.annotation.Excel;
 import com.cc.common.annotation.Excel.ColumnType;
 import com.cc.common.annotation.Excel.Type;
-import com.cc.common.annotation.Excels;
 import com.cc.common.annotation.xss.Xss;
 import com.cc.common.po.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -255,24 +253,6 @@ public class SysUser extends BaseEntity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("userId", getUserId())
-                .append("userName", getUserName())
-                .append("nickName", getNickName())
-                .append("email", getEmail())
-                .append("phonenumber", getPhonenumber())
-                .append("sex", getSex())
-                .append("avatar", getAvatar())
-                .append("password", getPassword())
-                .append("status", getStatus())
-                .append("delFlag", getDelFlag())
-                .append("loginIp", getLoginIp())
-                .append("loginDate", getLoginDate())
-                .append("createBy", getCreateBy())
-                .append("createTime", getCreateTime())
-                .append("updateBy", getUpdateBy())
-                .append("updateTime", getUpdateTime())
-                .append("remark", getRemark())
-                .toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

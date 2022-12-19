@@ -1,6 +1,7 @@
 package com.cc.system.po;
 
 import com.cc.common.utils.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * 缓存信息
@@ -73,5 +74,10 @@ public class SysCache {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

@@ -1,7 +1,6 @@
 package com.cc.system.po;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 角色和部门关联 sys_role_dept
@@ -37,9 +36,6 @@ public class SysRoleDept {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("roleId", getRoleId())
-                .append("deptId", getDeptId())
-                .toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

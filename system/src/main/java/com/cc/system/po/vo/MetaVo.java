@@ -1,6 +1,7 @@
 package com.cc.system.po.vo;
 
 import com.cc.common.utils.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * 路由显示信息
@@ -87,5 +88,10 @@ public class MetaVo {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

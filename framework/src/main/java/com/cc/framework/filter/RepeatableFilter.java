@@ -32,9 +32,4 @@ public class RepeatableFilter implements Filter {
             chain.doFilter(requestWrapper, response);
         }
     }
-
-    @Override
-    public void destroy() {
-
-    }
 }

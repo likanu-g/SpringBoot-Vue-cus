@@ -1,6 +1,7 @@
 package com.cc.system.po.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.List;
 
@@ -126,5 +127,10 @@ public class RouterVo {
 
     public void setChildren(List<RouterVo> children) {
         this.children = children;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

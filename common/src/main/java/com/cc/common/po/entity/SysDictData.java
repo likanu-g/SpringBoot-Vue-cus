@@ -5,7 +5,6 @@ import com.cc.common.annotation.Excel.ColumnType;
 import com.cc.common.constant.UserConstants;
 import com.cc.common.po.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -155,21 +154,6 @@ public class SysDictData extends BaseEntity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("dictCode", getDictCode())
-                .append("dictSort", getDictSort())
-                .append("dictLabel", getDictLabel())
-                .append("dictValue", getDictValue())
-                .append("dictType", getDictType())
-                .append("cssClass", getCssClass())
-                .append("listClass", getListClass())
-                .append("isDefault", getIsDefault())
-                .append("status", getStatus())
-                .append("createBy", getCreateBy())
-                .append("createTime", getCreateTime())
-                .append("updateBy", getUpdateBy())
-                .append("updateTime", getUpdateTime())
-                .append("remark", getRemark())
-                .toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

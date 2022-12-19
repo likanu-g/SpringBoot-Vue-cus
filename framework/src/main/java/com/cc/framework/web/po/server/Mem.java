@@ -1,6 +1,7 @@
 package com.cc.framework.web.po.server;
 
 import com.cc.common.utils.Arith;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * 內存相关信息
@@ -49,5 +50,10 @@ public class Mem {
 
     public double getUsage() {
         return Arith.mul(Arith.div(used, total, 4), 100);
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

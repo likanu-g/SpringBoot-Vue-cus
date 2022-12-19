@@ -1,5 +1,7 @@
 package com.cc.common.po.page;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -78,5 +80,10 @@ public class TableDataInfo implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

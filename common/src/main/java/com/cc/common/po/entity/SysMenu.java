@@ -2,7 +2,6 @@ package com.cc.common.po.entity;
 
 import com.cc.common.po.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -96,7 +95,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 子菜单
      */
-    private List<SysMenu> children = new ArrayList<SysMenu>();
+    private List<SysMenu> children = new ArrayList<>();
 
     public Long getMenuId() {
         return menuId;
@@ -235,25 +234,6 @@ public class SysMenu extends BaseEntity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("menuId", getMenuId())
-                .append("menuName", getMenuName())
-                .append("parentId", getParentId())
-                .append("orderNum", getOrderNum())
-                .append("path", getPath())
-                .append("component", getComponent())
-                .append("isFrame", getIsFrame())
-                .append("IsCache", getIsCache())
-                .append("menuType", getMenuType())
-                .append("visible", getVisible())
-                .append("status ", getStatus())
-                .append("perms", getPerms())
-                .append("icon", getIcon())
-                .append("createBy", getCreateBy())
-                .append("createTime", getCreateTime())
-                .append("updateBy", getUpdateBy())
-                .append("updateTime", getUpdateTime())
-                .append("remark", getRemark())
-                .toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

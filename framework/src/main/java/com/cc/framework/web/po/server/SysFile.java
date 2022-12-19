@@ -1,5 +1,7 @@
 package com.cc.framework.web.po.server;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * 系统文件相关信息
  *
@@ -95,5 +97,10 @@ public class SysFile {
 
     public void setUsage(double usage) {
         this.usage = usage;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

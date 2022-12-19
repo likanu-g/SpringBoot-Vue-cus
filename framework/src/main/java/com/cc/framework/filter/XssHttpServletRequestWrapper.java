@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     /**
-     * @param request
+     * @param request httpServlet
      */
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
@@ -89,9 +89,8 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     /**
      * 是否是Json请求
      *
-     * @param request
      */
-    public boolean isJsonRequest() {
+    private boolean isJsonRequest() {
         String header = super.getHeader(HttpHeaders.CONTENT_TYPE);
         return StringUtils.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
     }

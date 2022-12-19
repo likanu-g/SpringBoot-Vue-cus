@@ -12,6 +12,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
@@ -62,7 +63,8 @@ public class GlobalExceptionHandler {
     public AjaxResult handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生未知异常.", requestURI, e);
-        return AjaxResult.error(e.getMessage());
+        String  resultMessage = String.format("请求地址'%s',发生未知异常.", requestURI);
+        return AjaxResult.error(resultMessage);
     }
 
     /**
@@ -72,11 +74,12 @@ public class GlobalExceptionHandler {
     public AjaxResult handleException(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestURI, e);
-        return AjaxResult.error(e.getMessage());
+        String  resultMessage = String.format("请求地址'%s',发生未知异常.", requestURI);
+        return AjaxResult.error(resultMessage);
     }
 
     /**
-     * 自定义验证异常
+     * 自定义方法绑定异常
      */
     @ExceptionHandler(BindException.class)
     public AjaxResult handleBindException(BindException e) {
@@ -86,12 +89,22 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 自定义验证异常
+     * 自定义方法参数验证异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
         String message = Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage();
+        return AjaxResult.error(message);
+    }
+
+    /**
+     * 拦截未知异常
+     */
+    @ExceptionHandler(Throwable.class)
+    public Object handleThrowable(Throwable e) {
+        log.error(e.getMessage(), e);
+        String message = "系统异常，请联系系统管理员！";
         return AjaxResult.error(message);
     }
 }

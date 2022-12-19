@@ -2,7 +2,6 @@ package com.cc.common.po.entity;
 
 import com.cc.common.po.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -183,21 +182,6 @@ public class SysDept extends BaseEntity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("deptId", getDeptId())
-                .append("parentId", getParentId())
-                .append("ancestors", getAncestors())
-                .append("deptName", getDeptName())
-                .append("orderNum", getOrderNum())
-                .append("leader", getLeader())
-                .append("phone", getPhone())
-                .append("email", getEmail())
-                .append("status", getStatus())
-                .append("delFlag", getDelFlag())
-                .append("createBy", getCreateBy())
-                .append("createTime", getCreateTime())
-                .append("updateBy", getUpdateBy())
-                .append("updateTime", getUpdateTime())
-                .toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

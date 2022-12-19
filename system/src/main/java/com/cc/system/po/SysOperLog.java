@@ -4,6 +4,7 @@ import com.cc.common.annotation.Excel;
 import com.cc.common.annotation.Excel.ColumnType;
 import com.cc.common.po.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 
@@ -251,5 +252,10 @@ public class SysOperLog extends BaseEntity {
 
     public void setOperTime(Date operTime) {
         this.operTime = operTime;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }
