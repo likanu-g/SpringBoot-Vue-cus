@@ -1,4 +1,4 @@
-package com.cc.controller.common;
+package com.cc.controller.system;
 
 import com.cc.common.config.CommonConfig;
 import com.cc.common.constant.Constants;

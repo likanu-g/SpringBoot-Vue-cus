@@ -1,4 +1,4 @@
-package com.cc.controller.monitor;
+package com.cc.controller.system;
 
 import com.cc.common.annotation.Log;
 import com.cc.common.controller.BaseController;
