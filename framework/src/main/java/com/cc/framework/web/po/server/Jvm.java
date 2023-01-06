@@ -96,7 +96,7 @@ public class Jvm {
      * JDK启动时间
      */
     public String getStartTime() {
-        return DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.getServerStartDate());
+        return DateUtils.formatDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.getServerStartDate());
     }
 
     /**

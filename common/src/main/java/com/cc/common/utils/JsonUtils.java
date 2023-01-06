@@ -3,7 +3,6 @@ package com.cc.common.utils;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-
 import java.util.List;
 
 public class JsonUtils {
@@ -13,7 +12,7 @@ public class JsonUtils {
      * @param jsonString json字符串
      * @return JSONObject
      */
-    public static JSONObject stringToJSONObject(String jsonString){
+    public static JSONObject stringToJSONObject(String jsonString) {
         return JSONObject.parseObject(jsonString);
     }
 

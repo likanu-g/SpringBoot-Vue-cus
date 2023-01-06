@@ -1273,11 +1273,11 @@ public class ExcelUtil<T> {
         }
         String str;
         if (val instanceof Date) {
-            str = DateUtils.parseDateToStr(dateFormat, (Date) val);
+            str = DateUtils.formatDateToStr(dateFormat, (Date) val);
         } else if (val instanceof LocalDateTime) {
-            str = DateUtils.parseDateToStr(dateFormat, DateUtils.toDate((LocalDateTime) val));
+            str = DateUtils.formatDateToStr(dateFormat, DateUtils.toDate((LocalDateTime) val));
         } else if (val instanceof LocalDate) {
-            str = DateUtils.parseDateToStr(dateFormat, DateUtils.toDate((LocalDate) val));
+            str = DateUtils.formatDateToStr(dateFormat, DateUtils.toDate((LocalDate) val));
         } else {
             str = val.toString();
         }
